@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Archivo listo</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      /* CARD */
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 420px;
+      }
+
+      /* ICON */
+      .success {
+        font-size: 50px;
+        margin-bottom: 10px;
+      }
+
+      /* BUTTON */
+      .btn {
+        margin-top: 20px;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      /* COMPARE */
+      .compare-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .size-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .label {
+        font-size: 12px;
+        color: #888;
+      }
+
+      .value {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .highlight {
+        color: #28a745;
+      }
+
+      .arrow {
+        font-size: 20px;
+        color: #999;
+      }
+
+      .reduction {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      .share {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="success">✅</div>
+
+      <h1>Tu archivo está listo</h1>
+      <p>Procesado en segundos 🚀</p>
+
+      <!-- ✅ AHORA ESTÁ DENTRO -->
+      {% if original_size and compressed_size %}
+      <div class="compare-box">
+        <div class="size-block">
+          <span class="label">ANTES</span>
+          <span class="value">{{ original_size }} MB</span>
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="size-block">
+          <span class="label">DESPUÉS</span>
+          <span class="value highlight">{{ compressed_size }} MB</span>
+        </div>
+      </div>
+
+      <div class="reduction">Reducido un {{ reduction }}% 🚀</div>
+      {% endif %}
+
+      <a href="/download/{{ filename }}">
+        <button class="btn">⬇ Descargar</button>
+      </a>
+
+      <div class="share">¿Te sirvió? Compártelo 👍</div>
+
+      <a href="/">← Volver</a>
+    </div>
+
+    {% if error %}
+    <p style="color: red; font-weight: bold">{{ error }}</p>
+    {% endif %}
+  </body>
+</html>

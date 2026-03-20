@@ -1,0 +1,452 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+    background: #f4f6f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* =========================
+   COMPONENTS
+========================= */
+
+.arrow {
+    color: #999;
+    font-size: 20px;
+}
+
+.btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 12px 30px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.compare-box {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.container {
+    animation: fadeIn 0.3s ease;
+    display: none;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.container.active {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.container form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#delete-pages-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* =========================
+   DROP AREA
+========================= */
+.drop-area {
+    align-items: center;
+    background: white;
+    border: 2px dashed #ccc;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    height: 220px;
+    justify-content: center;
+    transition: all 0.3s ease;
+    width: 420px;
+}
+
+.drop-area:hover {
+    background: #f4f8ff;
+    border-color: #007bff;
+    transform: scale(1.02);
+}
+
+/* =========================
+   FILE LIST
+========================= */
+.file-item {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-size: 14px;
+    margin: 5px auto;
+    padding: 8px 15px;
+    width: 320px;
+}
+
+.file-list {
+    margin-top: 10px;
+    max-height: 120px;
+    overflow-y: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.file-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.file-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.file-name {
+    margin-top: 10px;
+    max-width: 420px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.file-name span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
+}
+
+.file-size {
+    color: #666;
+    font-weight: bold;
+}
+
+/* =========================
+   HEADER / HERO
+========================= */
+.header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+}
+
+.hero {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #666;
+}
+
+/* =========================
+   ADD IMAGES
+========================= */
+#images-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#images-preview img {
+    width: 120px;
+    border-radius: 6px;
+}
+
+.draggable {
+    cursor: grab;
+    text-align: center;
+}
+
+/* =========================
+   LABELS / TEXT
+========================= */
+.highlight {
+    color: #28a745;
+}
+
+.label {
+    color: #888;
+    font-size: 12px;
+}
+
+.reduction {
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.value {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =========================
+   LOADER
+========================= */
+.loader {
+    align-items: center;
+    background: rgba(255,255,255,0.9);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+
+.loader-icon {
+    animation: spin 2s linear infinite;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    border: 5px solid #ddd;
+    border-radius: 50%;
+    border-top: 5px solid #007bff;
+    height: 50px;
+    margin-bottom: 15px;
+    width: 50px;
+}
+
+.preview-loader {
+    align-items: center;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal {
+    align-items: center;
+    background: rgba(0,0,0,0.5);
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    width: 350px;
+}
+
+/* =========================
+   PAGES
+========================= */
+#pages-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+    max-width: 800px;
+}
+
+.page {
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 120px;
+}
+
+.page:hover {
+    transform: scale(1.05);
+}
+
+.selected {
+    border: 2px solid #007bff;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+.progress-bar {
+    background: #eee;
+    border-radius: 10px;
+    height: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+#progressFill {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    height: 100%;
+    transition: width 0.3s;
+    width: 0%;
+}
+
+#reorder-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.draggable {
+    cursor: grab;
+    text-align: center;
+}
+
+.draggable:active {
+    cursor: grabbing;
+}
+
+/* ROTATE GRID */
+#rotate-pages-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#rotate-pages-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   TOOLS
+========================= */
+.tool {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    cursor: pointer;
+    padding: 25px;
+    text-align: center;
+    transition: 0.2s;
+    width: 200px;
+}
+
+.tool:hover {
+    transform: translateY(-5px);
+}
+
+.tools {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* =========================
+   UPLOAD
+========================= */
+.upload-card {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.upload-content {
+    text-align: center;
+}
+
+.upload-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.upload-sub {
+    color: #777;
+    font-size: 14px;
+}
+
+.upload-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* =========================
+   UTILS
+========================= */
+.hidden {
+    display: none;
+}
+
+/* =========================
+   ZOOM PREVIEW
+========================= */
+.zoom-preview {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    left: 50%;
+    padding: 10px;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    z-index: 9999;
+}
+
+.zoom-preview img {
+    border-radius: 6px;
+    width: 100%;
+}

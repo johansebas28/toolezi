@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PDF Tools</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="header">PDF Tools</div>
+
+    <div class="hero">
+      <h1>Herramientas PDF Gratis</h1>
+      <p>Une, divide y gestiona tus PDFs fácilmente</p>
+    </div>
+
+    <div class="tools">
+      <div class="tool" onclick="showTool('pdf2img')">
+        <h3>🖼 PDF a Imagen</h3>
+        <p>Convierte PDF en imágenes</p>
+      </div>
+
+      <div class="tool" onclick="showTool('merge')">
+        <h3>🔗 Merge PDF</h3>
+        <p>Une varios PDFs</p>
+      </div>
+
+      <div class="tool" onclick="showTool('split')">
+        <h3>✂️ Split PDF</h3>
+        <p>Divide páginas</p>
+      </div>
+
+      <div class="tool" onclick="showTool('img2pdf')">
+        <h3>🖼➡📄 Imagen a PDF</h3>
+        <p>Convierte imágenes en PDF</p>
+      </div>
+
+      <div class="tool" onclick="showTool('compress')">
+        <h3>📉 Comprimir PDF</h3>
+        <p>Reduce el tamaño del archivo</p>
+      </div>
+
+      <div class="tool" onclick="showTool('word2pdf')">
+        <h3>📄➡️ PDF</h3>
+        <p>Word a PDF</p>
+      </div>
+
+      <div class="tool" onclick="showTool('pdf2word')">
+        <h3>📄➡️ Word</h3>
+        <p>PDF a Word</p>
+      </div>
+
+      <div class="tool" onclick="showTool('rotate')">
+        <h3>🔄 Rotar PDF</h3>
+        <p>Gira páginas fácilmente</p>
+      </div>
+
+      <div class="tool" onclick="showTool('delete')">
+        <h3>🗑 Eliminar páginas</h3>
+        <p>Elimina páginas específicas</p>
+      </div>
+
+      <div class="tool" onclick="showTool('reorder')">
+        <h3>📑 Organizar PDF</h3>
+        <p>Reordena páginas fácilmente</p>
+      </div>
+
+      <div class="tool" onclick="showTool('addimages')">
+        <h3>📄➕🖼 Añadir imágenes</h3>
+        <p>Inserta imágenes en tu PDF</p>
+      </div>
+    </div>
+    <!-- MERGE -->
+    <div id="merge" class="container">
+      <form action="/merge" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area" id="drop-area">
+            <input
+              type="file"
+              name="pdfs"
+              id="mergeInput"
+              multiple
+              required
+              hidden
+            />
+
+            <div class="upload-content" id="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Arrastra tus PDFs aquí</p>
+              <p class="upload-sub">o haz clic para seleccionar</p>
+            </div>
+
+            <div id="file-list" class="file-list"></div>
+          </label>
+        </div>
+
+        <button class="btn">Merge PDFs</button>
+      </form>
+    </div>
+
+    <!-- SPLIT -->
+    <div id="split" class="container">
+      <form
+        id="splitForm"
+        action="/split"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" id="splitInput" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <input type="hidden" name="pages" id="pagesInput" />
+
+        <button class="btn">Split PDF</button>
+      </form>
+
+      <div id="pages-container">
+        <div id="previewLoader" class="preview-loader hidden">
+          <div class="spinner"></div>
+          <p>Cargando páginas...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF TO IMG -->
+    <div id="pdf2img" class="container">
+      <form action="/pdf_to_img" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <!-- IMAGE TO PDF -->
+    <div id="img2pdf" class="container">
+      <form action="/img_to_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="images"
+              class="file-input"
+              multiple
+              required
+              hidden
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">🖼</div>
+              <p class="upload-title">Selecciona imágenes</p>
+              <p class="upload-sub">JPG o PNG</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Convertir a PDF</button>
+      </form>
+    </div>
+
+    <!-- COMPRESS -->
+    <div id="compress" class="container">
+      <form action="/compress_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <select name="quality" class="btn">
+          <option value="low">Alta compresión</option>
+          <option value="medium" selected>Balanceado</option>
+          <option value="high">Alta calidad</option>
+        </select>
+
+        <br />
+
+        <button class="btn">Comprimir PDF</button>
+      </form>
+    </div>
+
+    <!-- WORD TO PDF -->
+    <div id="word2pdf" class="container">
+      <form action="/word_to_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="file"
+              accept=".docx"
+              class="file-input"
+              required
+              hidden
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona archivo Word</p>
+              <p class="upload-sub">(.docx)</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <!-- PDF TO WORD -->
+    <div id="pdf2word" class="container">
+      <form action="/pdf_to_word" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <!-- ROTATE PDF -->
+    <div id="rotate" class="container">
+      <form
+        id="rotateForm"
+        action="/rotate_pdf"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" id="rotateInput" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">🔄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div id="rotate-pages-container"></div>
+
+        <button class="btn">Aplicar rotación</button>
+      </form>
+    </div>
+
+    <!-- DELETE PAGES -->
+    <div id="delete" class="container">
+      <form
+        id="deleteForm"
+        action="/delete_pages"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" id="deleteInput" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">🗑</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <input type="hidden" name="pages" id="deletePagesInput" />
+
+        <div id="delete-pages-container"></div>
+
+        <button type="submit" class="btn">Eliminar páginas</button>
+      </form>
+    </div>
+    <!-- REORDER PAGES -->
+    <div id="reorder" class="container">
+      <form
+        id="reorderForm"
+        action="/reorder_pdf"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" id="reorderInput" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📑</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <input type="hidden" name="order" id="orderInput" />
+
+        <div id="reorder-container"></div>
+
+        <button class="btn">Aplicar orden</button>
+      </form>
+    </div>
+
+    <!-- ADD IMAGES -->
+    <div id="addimages" class="container">
+      <form
+        action="/add_images_pdf"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <!-- PDF -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" id="addPdfInput" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona el PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div id="pdf-name" class="file-name"></div>
+
+        <!-- IMÁGENES -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="images"
+              id="addImagesInput"
+              multiple
+              required
+              hidden
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">🖼</div>
+              <p class="upload-title">Selecciona imágenes</p>
+              <p class="upload-sub">o arrástralas aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div id="images-name" class="file-name"></div>
+
+        <button class="btn">Agregar imágenes</button>
+      </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+      <p>Procesando archivo...</p>
+    </div>
+
+    <div id="processingModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="loader-icon">⚙️</div>
+
+        <h2>Procesando archivo</h2>
+        <p id="loadingText">Preparando...</p>
+
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+    <div id="zoomPreview" class="zoom-preview hidden"></div>
+  </body>
+</html>
