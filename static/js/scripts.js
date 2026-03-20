@@ -613,3 +613,45 @@ if (addImagesInput) {
         }
     });
 }
+// UNLOCK PDF
+document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener("change", function () {
+        const fileName = this.files[0]?.name || "No file selected";
+        const display = this.closest("form").querySelector("#file-name");
+        if (display) display.textContent = fileName;
+    });
+});
+
+const dropAreaUnlock = document.getElementById("drop-area-unlock");
+const fileInputUnlock = document.getElementById("fileInputUnlock");
+const fileNameUnlock = document.getElementById("file-name-unlock");
+
+if (dropAreaUnlock) {
+
+    dropAreaUnlock.addEventListener("click", () => fileInputUnlock.click());
+
+    dropAreaUnlock.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropAreaUnlock.classList.add("dragover");
+    });
+
+    dropAreaUnlock.addEventListener("dragleave", () => {
+        dropAreaUnlock.classList.remove("dragover");
+    });
+
+    dropAreaUnlock.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropAreaUnlock.classList.remove("dragover");
+
+        const files = e.dataTransfer.files;
+        fileInputUnlock.files = files;
+
+        fileNameUnlock.textContent = files[0].name;
+    });
+
+    fileInputUnlock.addEventListener("change", () => {
+        if (fileInputUnlock.files.length > 0) {
+            fileNameUnlock.textContent = fileInputUnlock.files[0].name;
+        }
+    });
+}

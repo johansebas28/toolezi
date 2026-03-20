@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, send_from_directory
 import os
 
 from routes.merge import merge_bp
@@ -10,11 +10,12 @@ from utils.cleanup import clean_old_files
 from routes.delete import delete_bp
 from routes.reorder import reorder_bp
 from routes.add_images import add_images_bp
-
+from routes.unlock import unlock_bp
 
 app = Flask(__name__)
 
-OUTPUT_FOLDER = "outputs"
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+OUTPUT_FOLDER = os.path.join(BASE_DIR, "outputs")
 
 # REGISTRAR BLUEPRINTS
 app.register_blueprint(merge_bp)
@@ -25,27 +26,30 @@ app.register_blueprint(rotate_bp)
 app.register_blueprint(delete_bp)
 app.register_blueprint(reorder_bp)
 app.register_blueprint(add_images_bp)
+app.register_blueprint(unlock_bp)
 
-@app.before_request
-def auto_cleanup():
-    clean_old_files()
+
+#@app.before_request
+#def auto_cleanup():
+#    clean_old_files()
+
 
 @app.route("/")
 def home():
     clean_old_files()  # 🔥 limpia cada vez que alguien entra
     return render_template("index.html")
 
-# DESCARGA + LIMPIEZA
+
 @app.route("/download/<filename>")
 def download_file(filename):
-    path = os.path.join("outputs", filename)
+    path = os.path.join(OUTPUT_FOLDER, filename)
 
     if not os.path.exists(path):
-        return "Archivo no encontrado"
+        return f"Archivo no encontrado: {filename}"
 
     response = send_file(path, as_attachment=True)
 
-    # 🔥 BORRAR DESPUÉS DE ENVIAR
+
     @response.call_on_close
     def cleanup():
         try:
@@ -55,6 +59,7 @@ def download_file(filename):
             print("Error al borrar:", e)
 
     return response
+
 
 # SERVIR IMÁGENES
 @app.route("/image/<filename>")

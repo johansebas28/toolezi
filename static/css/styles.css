@@ -72,6 +72,20 @@ body {
     gap: 10px;
 }
 
+.custom-file-upload {
+    display: inline-block;
+    padding: 12px 20px;
+    cursor: pointer;
+    background: #f1f1f1;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.custom-file-upload:hover {
+    background: #ddd;
+}
+
 #delete-pages-container {
     display: flex;
     flex-wrap: wrap;
@@ -355,6 +369,16 @@ body {
     cursor: grabbing;
 }
 
+.main-text {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.sub-text {
+    color: gray;
+    font-size: 14px;
+}
+
 /* ROTATE GRID */
 #rotate-pages-container {
     display: flex;
@@ -421,6 +445,25 @@ body {
 .upload-title {
     font-size: 18px;
     font-weight: bold;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.upload-area.dragover {
+    background-color: #f0f8ff;
+    border-color: #007bff;
+}
+
+.upload-box-content .icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 /* =========================

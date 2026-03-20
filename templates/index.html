@@ -59,10 +59,7 @@
         <p>Gira páginas fácilmente</p>
       </div>
 
-      <div class="tool" onclick="showTool('delete')">
-        <h3>🗑 Eliminar páginas</h3>
-        <p>Elimina páginas específicas</p>
-      </div>
+      <div class="tool" onclick="showTool('unlock')">🔓 Unlock PDF</div>
 
       <div class="tool" onclick="showTool('reorder')">
         <h3>📑 Organizar PDF</h3>
@@ -288,33 +285,35 @@
       </form>
     </div>
 
-    <!-- DELETE PAGES -->
-    <div id="delete" class="container">
-      <form
-        id="deleteForm"
-        action="/delete_pages"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <div class="upload-card">
-          <label class="drop-area">
-            <input type="file" name="pdf" id="deleteInput" required hidden />
+    <!-- UNLOCK PDF -->
+    <div id="unlock" class="container">
+      <h2>Unlock PDF</h2>
 
-            <div class="upload-content">
-              <div class="upload-icon">🗑</div>
-              <p class="upload-title">Selecciona un PDF</p>
-              <p class="upload-sub">o arrástralo aquí</p>
-            </div>
-          </label>
-        </div>
+      <form action="/unlock_pdf" method="post" enctype="multipart/form-data">
+        <label class="upload-box" id="drop-area-unlock">
+          <div class="upload-box-content">
+            <span class="icon">🔒</span>
 
-        <input type="hidden" name="pages" id="deletePagesInput" />
+            <p class="main-text">Selecciona un PDF</p>
+            <p class="sub-text">o arrástralo aquí</p>
+          </div>
 
-        <div id="delete-pages-container"></div>
+          <input
+            type="file"
+            name="pdf"
+            id="fileInputUnlock"
+            accept=".pdf"
+            hidden
+            required
+          />
+        </label>
 
-        <button type="submit" class="btn">Eliminar páginas</button>
+        <p id="file-name-unlock"></p>
+
+        <button class="btn">Unlock PDF</button>
       </form>
     </div>
+
     <!-- REORDER PAGES -->
     <div id="reorder" class="container">
       <form

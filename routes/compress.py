@@ -37,13 +37,13 @@ def compress_pdf():
         input_path,
     ], check=True)
 
-    os.remove(input_path)
-
     original_size = round(os.path.getsize(input_path) / (1024 * 1024), 2) if os.path.exists(input_path) else 0
     compressed_size = round(os.path.getsize(output_path) / (1024 * 1024), 2)
 
     reduction = round(100 - (compressed_size / original_size * 100), 1) if original_size else 0
 
+    os.remove(input_path)
+    
     return render_template(
         "result.html",
         filename=filename,
