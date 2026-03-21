@@ -18,57 +18,114 @@
       <p>Une, divide y gestiona tus PDFs fácilmente</p>
     </div>
 
-    <div class="tools">
-      <div class="tool" onclick="showTool('pdf2img')">
-        <h3>🖼 PDF a Imagen</h3>
-        <p>Convierte PDF en imágenes</p>
+    <!-- =========================
+     ORGANIZAR PDF
+========================= -->
+    <div class="category">
+      <h2>📂 Organizar PDF</h2>
+
+      <div class="tools-grid">
+        <div class="tool" onclick="showTool('merge')">
+          <h3>🔗 Merge PDF</h3>
+          <p>Une varios PDFs</p>
+        </div>
+
+        <div class="tool" onclick="showTool('split')">
+          <h3>✂️ Split PDF</h3>
+          <p>Divide páginas</p>
+        </div>
+
+        <div class="tool" onclick="showTool('rotate')">
+          <h3>🔄 Rotar PDF</h3>
+          <p>Gira páginas</p>
+        </div>
+
+        <div class="tool" onclick="showTool('reorder')">
+          <h3>📑 Organizar PDF</h3>
+          <p>Reordena páginas</p>
+        </div>
+
+        <div class="tool" onclick="showTool('addimages')">
+          <h3>📄➕🖼 Añadir imágenes</h3>
+          <p>Inserta imágenes</p>
+        </div>
       </div>
+    </div>
 
-      <div class="tool" onclick="showTool('merge')">
-        <h3>🔗 Merge PDF</h3>
-        <p>Une varios PDFs</p>
+    <!-- =========================
+     CONVERTIR PDF
+========================= -->
+    <div class="category">
+      <h2>🔄 Convertir PDF</h2>
+
+      <div class="tools-grid">
+        <div class="tool" onclick="showTool('pdf2img')">
+          <h3>🖼 PDF a Imagen</h3>
+          <p>Convierte PDF en imágenes</p>
+        </div>
+
+        <div class="tool" onclick="showTool('img2pdf')">
+          <h3>🖼➡📄 Imagen a PDF</h3>
+          <p>Convierte imágenes</p>
+        </div>
+
+        <div class="tool" onclick="showTool('pdf2word')">
+          <h3>📄➡️ Word</h3>
+          <p>PDF a Word</p>
+        </div>
+
+        <div class="tool" onclick="showTool('word2pdf')">
+          <h3>📄➡️ PDF</h3>
+          <p>Word a PDF</p>
+        </div>
+        <div class="tool" onclick="showTool('excel2pdf')">
+          <h3>📊➡️ PDF</h3>
+          <p>Excel a PDF</p>
+        </div>
+        <div class="tool" onclick="showTool('pdf2excel')">
+          <h3>📄➡️📊 Excel</h3>
+          <p>PDF a Excel</p>
+        </div>
       </div>
+    </div>
 
-      <div class="tool" onclick="showTool('split')">
-        <h3>✂️ Split PDF</h3>
-        <p>Divide páginas</p>
+    <!-- =========================
+     OPTIMIZAR
+========================= -->
+    <div class="category">
+      <h2>⚡ Optimizar</h2>
+
+      <div class="tools-grid">
+        <div class="tool" onclick="showTool('compress')">
+          <h3>📉 Comprimir PDF</h3>
+          <p>Reduce el tamaño</p>
+        </div>
+        <div class="tool" onclick="showTool('watermark')">
+          <h3>💧 Marca de agua</h3>
+          <p>Agrega texto a tu PDF</p>
+        </div>
       </div>
+    </div>
 
-      <div class="tool" onclick="showTool('img2pdf')">
-        <h3>🖼➡📄 Imagen a PDF</h3>
-        <p>Convierte imágenes en PDF</p>
-      </div>
+    <!-- =========================
+     SEGURIDAD
+========================= -->
+    <div class="category">
+      <h2>🔐 Seguridad</h2>
 
-      <div class="tool" onclick="showTool('compress')">
-        <h3>📉 Comprimir PDF</h3>
-        <p>Reduce el tamaño del archivo</p>
-      </div>
-
-      <div class="tool" onclick="showTool('word2pdf')">
-        <h3>📄➡️ PDF</h3>
-        <p>Word a PDF</p>
-      </div>
-
-      <div class="tool" onclick="showTool('pdf2word')">
-        <h3>📄➡️ Word</h3>
-        <p>PDF a Word</p>
-      </div>
-
-      <div class="tool" onclick="showTool('rotate')">
-        <h3>🔄 Rotar PDF</h3>
-        <p>Gira páginas fácilmente</p>
-      </div>
-
-      <div class="tool" onclick="showTool('unlock')">🔓 Unlock PDF</div>
-
-      <div class="tool" onclick="showTool('reorder')">
-        <h3>📑 Organizar PDF</h3>
-        <p>Reordena páginas fácilmente</p>
-      </div>
-
-      <div class="tool" onclick="showTool('addimages')">
-        <h3>📄➕🖼 Añadir imágenes</h3>
-        <p>Inserta imágenes en tu PDF</p>
+      <div class="tools-grid">
+        <div class="tool" onclick="showTool('unlock')">
+          <h3>🔓 Unlock PDF</h3>
+          <p>Quita la contraseña</p>
+        </div>
+        <div class="tool" onclick="showTool('protect')">
+          <h3>🔐 Proteger PDF</h3>
+          <p>Agrega contraseña a tu PDF</p>
+        </div>
+        <div class="tool" onclick="showTool('sign')">
+          <h3>✍️ Firmar PDF</h3>
+          <p>Agrega tu firma al documento</p>
+        </div>
       </div>
     </div>
     <!-- MERGE -->
@@ -210,6 +267,41 @@
       </form>
     </div>
 
+    <!-- WATERMARK PDF -->
+    <div id="watermark" class="container">
+      <form action="/watermark_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">💧</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <!-- TEXTO -->
+        <input
+          type="text"
+          name="text"
+          placeholder="Ej: CONFIDENCIAL"
+          required
+          style="
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+          "
+        />
+
+        <button class="btn">Aplicar marca de agua</button>
+      </form>
+    </div>
+
     <!-- WORD TO PDF -->
     <div id="word2pdf" class="container">
       <form action="/word_to_pdf" method="POST" enctype="multipart/form-data">
@@ -254,6 +346,33 @@
         </div>
 
         <div class="file-name"></div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <!-- EXCEL TO PDF -->
+    <div id="excel2pdf" class="tool-content" style="display: none">
+      <h2>Excel a PDF</h2>
+
+      <form action="/excel_to_pdf" method="POST" enctype="multipart/form-data">
+        <div class="drop-area">
+          <p>Selecciona archivo Excel</p>
+          <input type="file" name="file" accept=".xls,.xlsx" required />
+        </div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <div id="pdf2excel" class="tool-content" style="display: none">
+      <h2>PDF a Excel</h2>
+
+      <form action="/pdf_to_excel" method="POST" enctype="multipart/form-data">
+        <div class="drop-area">
+          <p>Selecciona un PDF</p>
+          <input type="file" name="pdf" accept=".pdf" required />
+        </div>
 
         <button class="btn">Convertir</button>
       </form>
@@ -313,6 +432,41 @@
       </form>
     </div>
 
+    <!-- PROTECT PDF -->
+    <div id="protect" class="container">
+      <form action="/protect_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+
+            <div class="upload-content">
+              <div class="upload-icon">🔐</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <!-- 🔐 PASSWORD -->
+        <input
+          type="password"
+          name="password"
+          placeholder="Ingresa contraseña"
+          required
+          style="
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+          "
+        />
+
+        <button class="btn">Proteger PDF</button>
+      </form>
+    </div>
+
     <div id="passwordModal" class="modal hidden">
       <div class="modal-content">
         <div class="loader-icon">🔒</div>
@@ -343,6 +497,25 @@
 
         <button class="btn" onclick="submitPassword()">Desbloquear</button>
       </div>
+    </div>
+
+    <!-- FIRMAR PDF -->
+    <div id="sign" class="tool-content" style="display: none">
+      <h2>Firmar PDF</h2>
+
+      <form action="/sign_pdf" method="POST" enctype="multipart/form-data">
+        <div class="drop-area">
+          <p>Selecciona PDF</p>
+          <input type="file" name="pdf" required />
+        </div>
+
+        <div class="drop-area">
+          <p>Selecciona imagen de firma</p>
+          <input type="file" name="image" accept="image/*" required />
+        </div>
+
+        <button class="btn">Firmar PDF</button>
+      </form>
     </div>
 
     <!-- REORDER PAGES -->
