@@ -49,6 +49,11 @@
           <h3>📄➕🖼 Añadir imágenes</h3>
           <p>Inserta imágenes</p>
         </div>
+
+        <div class="tool" onclick="showTool('edit')">
+          <h3>✏️ Editar PDF</h3>
+          <p>Agrega texto al documento</p>
+        </div>
       </div>
     </div>
 
@@ -78,13 +83,20 @@
           <h3>📄➡️ PDF</h3>
           <p>Word a PDF</p>
         </div>
+
         <div class="tool" onclick="showTool('excel2pdf')">
           <h3>📊➡️ PDF</h3>
           <p>Excel a PDF</p>
         </div>
+
         <div class="tool" onclick="showTool('pdf2excel')">
           <h3>📄➡️📊 Excel</h3>
           <p>PDF a Excel</p>
+        </div>
+
+        <div class="tool" onclick="showTool('ppt2pdf')">
+          <h3>📊➡️ PDF</h3>
+          <p>PowerPoint a PDF</p>
         </div>
       </div>
     </div>
@@ -94,12 +106,12 @@
 ========================= -->
     <div class="category">
       <h2>⚡ Optimizar</h2>
-
       <div class="tools-grid">
         <div class="tool" onclick="showTool('compress')">
           <h3>📉 Comprimir PDF</h3>
           <p>Reduce el tamaño</p>
         </div>
+
         <div class="tool" onclick="showTool('watermark')">
           <h3>💧 Marca de agua</h3>
           <p>Agrega texto a tu PDF</p>
@@ -118,10 +130,12 @@
           <h3>🔓 Unlock PDF</h3>
           <p>Quita la contraseña</p>
         </div>
+
         <div class="tool" onclick="showTool('protect')">
           <h3>🔐 Proteger PDF</h3>
           <p>Agrega contraseña a tu PDF</p>
         </div>
+        
         <div class="tool" onclick="showTool('sign')">
           <h3>✍️ Firmar PDF</h3>
           <p>Agrega tu firma al documento</p>
@@ -352,29 +366,120 @@
     </div>
 
     <!-- EXCEL TO PDF -->
-    <div id="excel2pdf" class="tool-content" style="display: none">
-      <h2>Excel a PDF</h2>
-
+    <div id="excel2pdf" class="container">
       <form action="/excel_to_pdf" method="POST" enctype="multipart/form-data">
-        <div class="drop-area">
-          <p>Selecciona archivo Excel</p>
-          <input type="file" name="file" accept=".xls,.xlsx" required />
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="file"
+              class="file-input"
+              accept=".xls,.xlsx"
+              hidden
+              required
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">📊</div>
+              <p class="upload-title">Selecciona Excel</p>
+              <p class="upload-sub">.xls o .xlsx</p>
+            </div>
+          </label>
         </div>
+
+        <div class="file-name"></div>
 
         <button class="btn">Convertir</button>
       </form>
     </div>
 
-    <div id="pdf2excel" class="tool-content" style="display: none">
-      <h2>PDF a Excel</h2>
-
+    <!-- PDF TO EXCEL -->
+    <div id="pdf2excel" class="container">
       <form action="/pdf_to_excel" method="POST" enctype="multipart/form-data">
-        <div class="drop-area">
-          <p>Selecciona un PDF</p>
-          <input type="file" name="pdf" accept=".pdf" required />
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="pdf"
+              class="file-input"
+              accept=".pdf"
+              hidden
+              required
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄➡📊</div>
+              <p class="upload-title">Selecciona PDF</p>
+              <p class="upload-sub">extraer tablas</p>
+            </div>
+          </label>
         </div>
 
+        <div class="file-name"></div>
+
         <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <!-- PPT TO PDF -->
+    <div id="ppt2pdf" class="container">
+      <form action="/ppt_to_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="file"
+              class="file-input"
+              accept=".ppt,.pptx"
+              hidden
+              required
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">📊➡📄</div>
+              <p class="upload-title">Selecciona PowerPoint</p>
+              <p class="upload-sub">.ppt o .pptx</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Convertir</button>
+      </form>
+    </div>
+
+    <div id="edit" class="container">
+      <form action="/edit_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" hidden required />
+
+            <div class="upload-content">
+              <div class="upload-icon">✏️</div>
+              <p class="upload-title">Selecciona PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <!-- TEXTO -->
+        <input
+          type="text"
+          name="text"
+          placeholder="Escribe el texto a agregar"
+          required
+          style="
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+          "
+        />
+
+        <button class="btn">Aplicar cambios</button>
       </form>
     </div>
 
@@ -499,20 +604,41 @@
       </div>
     </div>
 
-    <!-- FIRMAR PDF -->
-    <div id="sign" class="tool-content" style="display: none">
-      <h2>Firmar PDF</h2>
-
+    <div id="sign" class="container">
       <form action="/sign_pdf" method="POST" enctype="multipart/form-data">
-        <div class="drop-area">
-          <p>Selecciona PDF</p>
-          <input type="file" name="pdf" required />
+        <!-- PDF -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" hidden required />
+
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
         </div>
 
-        <div class="drop-area">
-          <p>Selecciona imagen de firma</p>
-          <input type="file" name="image" accept="image/*" required />
+        <!-- FIRMA -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="image"
+              class="file-input"
+              hidden
+              required
+            />
+
+            <div class="upload-content">
+              <div class="upload-icon">✍️</div>
+              <p class="upload-title">Selecciona firma</p>
+              <p class="upload-sub">imagen (PNG/JPG)</p>
+            </div>
+          </label>
         </div>
+
+        <div class="file-name"></div>
 
         <button class="btn">Firmar PDF</button>
       </form>

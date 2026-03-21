@@ -6,6 +6,7 @@ from routes.split import split_bp
 from routes.convert import convert_bp
 from routes.excel import excel_bp
 from routes.pdf_to_excel import pdf_excel_bp
+from routes.powerpoint import ppt_bp
 from routes.compress import compress_bp
 from routes.rotate import rotate_bp
 from utils.cleanup import clean_old_files
@@ -16,6 +17,7 @@ from routes.unlock import unlock_bp
 from routes.protect import protect_bp
 from routes.watermark import watermark_bp
 from routes.sign import sign_bp
+from routes.edit import edit_bp
 
 
 app = Flask(__name__)
@@ -29,6 +31,7 @@ app.register_blueprint(split_bp)
 app.register_blueprint(convert_bp)
 app.register_blueprint(excel_bp)
 app.register_blueprint(pdf_excel_bp)
+app.register_blueprint(ppt_bp)
 app.register_blueprint(compress_bp)
 app.register_blueprint(rotate_bp)
 app.register_blueprint(delete_bp)
@@ -38,6 +41,7 @@ app.register_blueprint(unlock_bp)
 app.register_blueprint(protect_bp)
 app.register_blueprint(watermark_bp)
 app.register_blueprint(sign_bp)
+app.register_blueprint(edit_bp)
 
 #@app.before_request
 #def auto_cleanup():
