@@ -13,18 +13,20 @@ OUTPUT_FOLDER = os.path.join(BASE_DIR, "outputs")
 @unlock_bp.route("/unlock_pdf", methods=["POST"])
 def unlock_pdf():
 
-    # 🔹 Caso 1: viene archivo nuevo
     file = request.files.get("pdf")
-
-    # 🔹 Caso 2: viene archivo temporal
     temp_name = request.form.get("temp_name")
     password = request.form.get("password")
 
+    input_path = None
+
+    # 🔹 CASO 1: archivo nuevo
     if file:
         filename_secure = secure_filename(file.filename)
-        input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}_{filename_secure}")
+        temp_name = f"{uuid.uuid4()}_{filename_secure}"
+        input_path = os.path.join(UPLOAD_FOLDER, temp_name)
         file.save(input_path)
 
+    # 🔹 CASO 2: archivo temporal (ya subido antes)
     elif temp_name:
         input_path = os.path.join(UPLOAD_FOLDER, temp_name)
 
@@ -34,35 +36,38 @@ def unlock_pdf():
     try:
         reader = PdfReader(input_path)
 
-        # 🔥 NO está protegido
+        # 🔓 Si NO está protegido
         if not reader.is_encrypted:
-            os.remove(input_path)
-            return render_template("result.html", error="This PDF is not protected")
+            return generate_unlocked(reader, input_path)
 
-        # 🔥 intento sin contraseña (restricciones)
+        # 🔥 Intento automático (algunos PDFs permiten esto)
         if reader.decrypt("") != 0:
             return generate_unlocked(reader, input_path)
 
-        # 🔐 necesita contraseña
+        # 🔐 NECESITA CONTRASEÑA → mostrar modal
         if not password:
             return render_template(
-                "unlock_password.html",
+                "index.html",
+                ask_password=True,
                 temp_name=os.path.basename(input_path)
             )
 
-        # 🔐 intento con contraseña
+        # 🔐 Intento con contraseña
         if reader.decrypt(password) == 0:
             return render_template(
-                "unlock_password.html",
+                "index.html",
+                ask_password=True,
                 temp_name=os.path.basename(input_path),
-                error="Incorrect password"
+                error="Contraseña incorrecta"
             )
 
+        # 🔓 Desbloqueo exitoso
         return generate_unlocked(reader, input_path)
 
-    except Exception:
-        if os.path.exists(input_path):
+    except Exception as e:
+        if input_path and os.path.exists(input_path):
             os.remove(input_path)
+        print("ERROR UNLOCK:", e)
         return render_template("result.html", error="Error processing file")
 
 
@@ -78,6 +83,8 @@ def generate_unlocked(reader, input_path):
     with open(output_path, "wb") as f:
         writer.write(f)
 
-    os.remove(input_path)
+    # 🧹 borrar archivo original
+    if os.path.exists(input_path):
+        os.remove(input_path)
 
     return render_template("result.html", filename=output_filename)

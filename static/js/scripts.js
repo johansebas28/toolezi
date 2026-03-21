@@ -622,7 +622,7 @@ document.querySelectorAll('input[type="file"]').forEach(input => {
     });
 });
 
-const dropAreaUnlock = document.getElementById("drop-area-unlock");
+
 const fileInputUnlock = document.getElementById("fileInputUnlock");
 const fileNameUnlock = document.getElementById("file-name-unlock");
 
@@ -653,5 +653,29 @@ if (dropAreaUnlock) {
         if (fileInputUnlock.files.length > 0) {
             fileNameUnlock.textContent = fileInputUnlock.files[0].name;
         }
+    });
+}
+
+function submitPassword() {
+    const password = document.getElementById("passwordInput").value;
+    const tempName = document.getElementById("tempName").value;
+
+    const formData = new FormData();
+    formData.append("password", password);
+    formData.append("temp_name", tempName);
+
+    fetch("/unlock_pdf", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+    })
+    .catch(err => {
+        alert("Error al desbloquear PDF");
+        console.error(err);
     });
 }
