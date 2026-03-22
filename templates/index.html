@@ -20,12 +20,27 @@
     </div>
 
     <!-- HEADER -->
-    <div class="header">PDF Tools</div>
+    <div class="header">
+      <div class="nav">
+        <div class="logo-text">
+          <span class="brand-name">TOOLESI</span>
+        </div>
 
-    <div class="hero">
-      <h1 ="title">Herramientas PDF Gratis</h1>
-      <p ="subtitle">Une, divide y gestiona tus PDFs fácilmente</p>
+        <div class="nav-actions">
+          <button class="nav-btn">Iniciar sesión</button>
+          <button class="nav-btn primary">Probar PRO</button>
+        </div>
+      </div>
     </div>
+
+      <div class="hero">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="hero-logo">
+
+        <h1>Everything you need for your PDFs</h1>
+        <p>Fast, free and hassle-free</p>
+
+        <button class="btn">Start now</button>
+      </div>
 
     <!-- =========================
       ORGANIZAR PDF
@@ -788,7 +803,7 @@
         <h2>💬 Feedback</h2>
 
         <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLScdcgieISsvSQQfYqaWQSI5KrLhrLYcbi-SwmdtLp8jza16OA/viewform?usp=dialog"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSev9Qkk4ONbyxGnexjUN12vkJEbvz0VoZzOiinDFj59mR4ilw/viewform?usp=dialog"
           width="100%"
           height="400"
           frameborder="0"
@@ -799,5 +814,29 @@
         <button class="close-btn" onclick="closeFeedback()">Cerrar</button>
       </div>
     </div>
+        <div class="footer">
+            <div class="footer-content">
+
+              <div class="footer-brand">
+                <h3>Toolesi</h3>
+                <p>Herramientas PDF gratuitas, rápidas y fáciles de usar.</p>
+              </div>
+
+              <div class="footer-donate">
+                <button class="donate-btn">☕ Apoyar proyecto</button>
+              </div>
+
+              <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Contacto</a>
+              </div>
+
+            </div>
+
+          <div class="footer-bottom">
+            © 2026 Toolesi — Hecho con 💙
+          </div>
+        </div>
   </body>
 </html>

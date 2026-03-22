@@ -2,7 +2,7 @@
     GLOBAL
 ========================= */
 body {
-    background: #f4f6f8;
+    background: linear-gradient(to bottom, #f8fbff, #eef3f9);
     font-family: Arial, sans-serif;
     margin: 0;
 }
@@ -29,14 +29,14 @@ body {
 }
 
 .btn {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #007bff, #00c6ff);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 16px;
     color: white;
     cursor: pointer;
-    font-weight: bold;
-    margin-top: 20px;
-    padding: 12px 30px;
+
     transition: 0.2s;
 }
 
@@ -49,10 +49,7 @@ body {
 ========================= */
 
 .category {
-    margin-top: 60px;   /* 🔥 más separación vertical */
-}
-
-.category {
+    margin-top: 80px;   /* 🔥 más separación vertical */
     animation: fadeIn 0.5s ease;
 }
 
@@ -175,8 +172,37 @@ FEEDBACK, DONATIONS
     background: #999;
 }
 
-    .donate {
-    background: #ff5f5f;
+/* =========================
+    DONATION BUTTON
+========================= */
+
+.donation-box {
+    max-width: 500px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.donation-box h3 {
+    margin-bottom: 10px;
+}
+
+.donation-box p {
+    color: #666;
+    font-size: 14px;
+}
+
+.donate-btn {
+    margin-top: 15px;
+    background: linear-gradient(135deg, #ff7a18, #ffb347);
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 /* =========================
@@ -234,6 +260,57 @@ FEEDBACK, DONATIONS
 }
 
 /* =========================
+    FOOTER
+========================= */
+
+.footer {
+    margin-top: 80px;
+    background: #ffffff;
+    border-top: 1px solid #eee;
+    padding: 40px 20px 20px;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-brand h3 {
+    margin-bottom: 5px;
+}
+
+.footer-brand p {
+    color: #666;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 13px;
+    color: #999;
+}
+
+/* =========================
     HEADER / HERO
 ========================= */
 .header {
@@ -246,17 +323,36 @@ FEEDBACK, DONATIONS
 }
 
 .hero {
-    margin-top: 40px;
+
     text-align: center;
+    margin-top: 30px;
 }
 
 .hero h1 {
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 10px;
 }
 
 .hero p {
+    font-size: 18px;
     color: #666;
+}
+
+.hero-actions {
+    margin-top: 20px;
+}
+
+.hero-logo {
+    height: 200px;   /* 🔥 MÁS GRANDE */
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+}
+
+    @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
 }
 
 .tool:hover {
@@ -382,6 +478,58 @@ FEEDBACK, DONATIONS
     to { opacity: 1; transform: scale(1); }
 }
 
+/*===========================
+    NAVBAR
+=============================*/
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.logo img {
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+}
+
+.nav-btn.primary {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+}
+
 /* =========================
     PAGES
 ========================= */
@@ -475,20 +623,21 @@ FEEDBACK, DONATIONS
 ========================= */
 .tool {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    
-    padding: 30px 20px;   /* 🔥 MÁS ESPACIO INTERNO */
-    
+    border-radius: 20px;
+    padding: 35px 25px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+
     text-align: center;
     cursor: pointer;
-    transition: 0.25s;
+
+    transition: all 0.25s ease;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 10px;  /* 🔥 separa título y texto */
+    gap: 12px;
 }
+
 
 .tools-grid {
     display: grid;
@@ -511,7 +660,8 @@ FEEDBACK, DONATIONS
 }
 
 .tool:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 
 .tools {

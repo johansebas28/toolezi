@@ -1,19 +1,44 @@
 function showTool(tool, el) {
     
+    // 🔥 ocultar categorías
+    document.querySelectorAll(".category").forEach(c => {
+        c.style.display = "none";
+    });
+
+    // 🔥 mostrar contenedor
     const containers = document.querySelectorAll(".container");
     containers.forEach(c => c.classList.remove("active"));
 
     const selected = document.getElementById(tool);
     selected.classList.add("active");
 
-    // 🔥 botón activo
-    document.querySelectorAll(".tool").forEach(t => t.classList.remove("active"));
-    if (el) el.classList.add("active");
+    // 🔥 botón volver
+    let backBtn = document.getElementById("backBtn");
+
+    if (!backBtn) {
+        backBtn = document.createElement("button");
+        backBtn.id = "backBtn";
+        backBtn.textContent = "← Volver";
+        backBtn.className = "btn";
+
+        backBtn.onclick = () => {
+            document.querySelectorAll(".category").forEach(c => {
+                c.style.display = "block";
+            });
+
+            document.querySelectorAll(".container").forEach(c => {
+                c.classList.remove("active");
+            });
+
+            backBtn.remove();
+        };
+
+        document.body.prepend(backBtn);
+    }
 
     setTimeout(() => {
         selected.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+            behavior: "smooth"
         });
     }, 100);
 }
@@ -230,6 +255,29 @@ allInputs.forEach(input => {
 
 const forms = document.querySelectorAll("form");
 
+// 🔥 MENSAJES INTELIGENTES
+const toolMessages = {
+    "/merge": "Uniendo PDFs...",
+    "/split": "Dividiendo páginas...",
+    "/compress_pdf": "Comprimiendo archivo...",
+    "/pdf_to_img": "Convirtiendo PDF a imágenes...",
+    "/img_to_pdf": "Creando PDF desde imágenes...",
+    "/pdf_to_word": "Convirtiendo a Word...",
+    "/word_to_pdf": "Convirtiendo a PDF...",
+    "/excel_to_pdf": "Convirtiendo Excel...",
+    "/pdf_to_excel": "Extrayendo datos a Excel...",
+    "/ppt_to_pdf": "Convirtiendo presentación...",
+    "/ocr_pdf": "Reconociendo texto (OCR)...",
+    "/rotate_pdf": "Rotando páginas...",
+    "/reorder_pdf": "Organizando páginas...",
+    "/add_images_pdf": "Insertando imágenes...",
+    "/unlock_pdf": "Desbloqueando PDF...",
+    "/protect_pdf": "Protegiendo archivo...",
+    "/sign_pdf": "Aplicando firma...",
+    "/watermark_pdf": "Agregando marca de agua...",
+    "/number_pdf": "Numerando páginas..."
+};
+
 forms.forEach(form => {
 
     form.addEventListener("submit", function(e) {
@@ -240,23 +288,28 @@ forms.forEach(form => {
         const progress = document.getElementById("progressFill");
         const loadingText = document.getElementById("loadingText");
 
-        if (!modal) {
-            console.error("Modal no encontrado");
-            return;
-        }
 
         modal.classList.remove("hidden");
+
+        // 🔥 DETECTAR TOOL
+        const action = form.getAttribute("action");
+
+        // 🔥 MENSAJE PERSONALIZADO
+        loadingText.textContent = toolMessages[action] || "Procesando archivo...";
 
         let percent = 0;
 
         const interval = setInterval(() => {
-            percent += 10;
+            percent += Math.random() * 15;
+
             if (percent >= 90) {
-                clearInterval(interval);
                 percent = 90;
+                clearInterval(interval);
+
             }
+
             progress.style.width = percent + "%";
-        }, 300);
+        }, 400);
 
         const formData = new FormData(form);
 
@@ -634,6 +687,7 @@ document.querySelectorAll('input[type="file"]').forEach(input => {
 const fileInputUnlock = document.getElementById("fileInputUnlock");
 const fileNameUnlock = document.getElementById("file-name-unlock");
 
+const dropAreaUnlock = document.getElementById("dropAreaUnlock");
 if (dropAreaUnlock) {
 
     dropAreaUnlock.addEventListener("click", () => fileInputUnlock.click());
