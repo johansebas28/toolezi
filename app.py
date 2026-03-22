@@ -17,8 +17,8 @@ from routes.unlock import unlock_bp
 from routes.protect import protect_bp
 from routes.watermark import watermark_bp
 from routes.sign import sign_bp
-from routes.edit import edit_bp
-
+from routes.ocr import ocr_bp
+from routes.number_pages import number_bp
 
 app = Flask(__name__)
 
@@ -41,7 +41,8 @@ app.register_blueprint(unlock_bp)
 app.register_blueprint(protect_bp)
 app.register_blueprint(watermark_bp)
 app.register_blueprint(sign_bp)
-app.register_blueprint(edit_bp)
+app.register_blueprint(ocr_bp)
+app.register_blueprint(number_bp)
 
 #@app.before_request
 #def auto_cleanup():

@@ -95,8 +95,12 @@
     <div class="card">
       <div class="success">✅</div>
 
+      {% if filename %}
       <h1>Tu archivo está listo</h1>
       <p>Procesado en segundos 🚀</p>
+      {% else %}
+      <h1>Error al procesar</h1>
+      {% endif %}
 
       <!-- ✅ AHORA ESTÁ DENTRO -->
       {% if original_size and compressed_size %}
@@ -115,19 +119,17 @@
       </div>
 
       <div class="reduction">Reducido un {{ reduction }}% 🚀</div>
-      {% endif %}
-
+      {% endif %} {% if filename %}
       <a href="/download/{{ filename }}">
         <button class="btn">⬇ Descargar</button>
       </a>
+      {% endif %} {% if error %}
+      <p style="color: red; margin-top: 10px">{{ error }}</p>
+      {% endif %}
 
       <div class="share">¿Te sirvió? Compártelo 👍</div>
 
       <a href="/">← Volver</a>
     </div>
-
-    {% if error %}
-    <p style="color: red; font-weight: bold">{{ error }}</p>
-    {% endif %}
   </body>
 </html>

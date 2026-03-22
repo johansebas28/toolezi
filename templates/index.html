@@ -11,16 +11,25 @@
   </head>
 
   <body>
+    <!-- 🌍 Traductor -->
+    <div id="google_translate_element"></div>
+
+    <!-- 💬 Botones arriba -->
+    <div class="top-actions">
+      <button class="action-btn" onclick="openFeedback()">💬 Feedback</button>
+    </div>
+
+    <!-- HEADER -->
     <div class="header">PDF Tools</div>
 
     <div class="hero">
-      <h1>Herramientas PDF Gratis</h1>
-      <p>Une, divide y gestiona tus PDFs fácilmente</p>
+      <h1 ="title">Herramientas PDF Gratis</h1>
+      <p ="subtitle">Une, divide y gestiona tus PDFs fácilmente</p>
     </div>
 
     <!-- =========================
-     ORGANIZAR PDF
-========================= -->
+      ORGANIZAR PDF
+  ========================= -->
     <div class="category">
       <h2>📂 Organizar PDF</h2>
 
@@ -50,16 +59,16 @@
           <p>Inserta imágenes</p>
         </div>
 
-        <div class="tool" onclick="showTool('edit')">
-          <h3>✏️ Editar PDF</h3>
-          <p>Agrega texto al documento</p>
+        <div class="tool" onclick="showTool('number')">
+          <h3>🔢 Numerar PDF</h3>
+          <p>Agrega números a cada página</p>
         </div>
       </div>
     </div>
 
     <!-- =========================
-     CONVERTIR PDF
-========================= -->
+      CONVERTIR PDF
+  ========================= -->
     <div class="category">
       <h2>🔄 Convertir PDF</h2>
 
@@ -98,12 +107,17 @@
           <h3>📊➡️ PDF</h3>
           <p>PowerPoint a PDF</p>
         </div>
+
+        <div class="tool" onclick="showTool('ocr')">
+          <h3>🔍 OCR PDF</h3>
+          <p>Extrae texto de PDFs escaneados</p>
+        </div>
       </div>
     </div>
 
     <!-- =========================
-     OPTIMIZAR
-========================= -->
+      OPTIMIZAR
+  ========================= -->
     <div class="category">
       <h2>⚡ Optimizar</h2>
       <div class="tools-grid">
@@ -120,8 +134,8 @@
     </div>
 
     <!-- =========================
-     SEGURIDAD
-========================= -->
+      SEGURIDAD
+  ========================= -->
     <div class="category">
       <h2>🔐 Seguridad</h2>
 
@@ -135,7 +149,7 @@
           <h3>🔐 Proteger PDF</h3>
           <p>Agrega contraseña a tu PDF</p>
         </div>
-        
+
         <div class="tool" onclick="showTool('sign')">
           <h3>✍️ Firmar PDF</h3>
           <p>Agrega tu firma al documento</p>
@@ -449,37 +463,42 @@
       </form>
     </div>
 
-    <div id="edit" class="container">
-      <form action="/edit_pdf" method="POST" enctype="multipart/form-data">
+    <!-- OCR TO PDF -->
+    <div id="ocr" class="container">
+      <form action="/ocr_pdf" method="POST" enctype="multipart/form-data">
         <div class="upload-card">
           <label class="drop-area">
-            <input type="file" name="pdf" class="file-input" hidden required />
+            <input type="file" name="file" class="file-input" hidden required />
 
             <div class="upload-content">
-              <div class="upload-icon">✏️</div>
+              <div class="upload-icon">🔍</div>
               <p class="upload-title">Selecciona PDF</p>
-              <p class="upload-sub">o arrástralo aquí</p>
+              <p class="upload-sub">escaneado o imagen</p>
             </div>
           </label>
         </div>
 
         <div class="file-name"></div>
 
-        <!-- TEXTO -->
-        <input
-          type="text"
-          name="text"
-          placeholder="Escribe el texto a agregar"
-          required
-          style="
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-top: 15px;
-          "
-        />
+        <button class="btn">Aplicar OCR</button>
+      </form>
+    </div>
 
-        <button class="btn">Aplicar cambios</button>
+    <!-- NUMERAR PAGINAS -->
+    <div id="number" class="container">
+      <form action="/number_pdf" method="POST" enctype="multipart/form-data">
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" required hidden />
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona un PDF</p>
+              <p class="upload-sub">Sube tu archivo para numerar</p>
+            </div>
+          </label>
+        </div>
+
+        <button class="btn">Numerar PDF</button>
       </form>
     </div>
 
@@ -747,5 +766,38 @@
       </div>
     </div>
     <div id="zoomPreview" class="zoom-preview hidden"></div>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "es",
+            includedLanguages: "en,es,fr,pt,de,it",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element",
+        );
+      }
+    </script>
+
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <div id="feedbackModal" class="modal">
+      <div class="modal-content">
+        <!-- ❌ icono cerrar -->
+        <span class="close" onclick="closeFeedback()">&times;</span>
+
+        <h2>💬 Feedback</h2>
+
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLScdcgieISsvSQQfYqaWQSI5KrLhrLYcbi-SwmdtLp8jza16OA/viewform?usp=dialog"
+          width="100%"
+          height="400"
+          frameborder="0"
+        >
+        </iframe>
+
+        <!-- 🔥 BOTÓN CERRAR -->
+        <button class="close-btn" onclick="closeFeedback()">Cerrar</button>
+      </div>
+    </div>
   </body>
 </html>

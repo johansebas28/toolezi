@@ -1,14 +1,22 @@
-function showTool(tool) {
+function showTool(tool, el) {
+    
     const containers = document.querySelectorAll(".container");
     containers.forEach(c => c.classList.remove("active"));
-    document.getElementById(tool).classList.add("active");
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    
-window.onload = () => {
-    showTool("merge");
-};
+    const selected = document.getElementById(tool);
+    selected.classList.add("active");
+
+    // 🔥 botón activo
+    document.querySelectorAll(".tool").forEach(t => t.classList.remove("active"));
+    if (el) el.classList.add("active");
+
+    setTimeout(() => {
+        selected.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 100);
+}
 
 const dropArea = document.getElementById("drop-area");
 const input = document.getElementById("mergeInput");
@@ -311,10 +319,10 @@ function simulateProgress() {
 
     }, 400);
 }
-});
+
 
 /* =========================
-   ROTATE (PÁGINAS INDIVIDUALES)
+    ROTATE (PÁGINAS INDIVIDUALES)
 ========================= */
 
 const rotateInput = document.getElementById("rotateInput");
@@ -407,7 +415,7 @@ if (rotateForm) {
 }
 
 /* =========================
-   DELETE PAGES
+    DELETE PAGES
 ========================= */
 
 const deleteInput = document.getElementById("deleteInput");
@@ -678,4 +686,12 @@ function submitPassword() {
         alert("Error al desbloquear PDF");
         console.error(err);
     });
+}
+
+function openFeedback() {
+    document.getElementById("feedbackModal").style.display = "block";
+}
+
+function closeFeedback() {
+    document.getElementById("feedbackModal").style.display = "none";
 }
