@@ -122,7 +122,9 @@ function updateInputFiles() {
     input.files = dataTransfer.files;
 }
 
-/* SPLIT */
+/*==========================
+    SPLIT 
+==========================*/
 
 const splitInput = document.getElementById("splitInput");
 const pagesContainer = document.getElementById("pages-container");
@@ -167,6 +169,30 @@ if (splitInput) {
 
         selectedPages.clear();
 
+        // 🚨 MODO SIMPLE (PDF GRANDE)
+        if (data.mode === "simple") {
+
+            pagesContainer.innerHTML = `
+                <div style="text-align:center; margin-top:30px;">
+                    <p>📄 PDF grande detectado (${data.total_pages} páginas)</p>
+                    <p>Ingresa las páginas que deseas separar:</p>
+
+                    <input id="manualPages" 
+                            placeholder="Ej: 1-5, 8, 10-12"
+                            style="padding:10px; width:250px; border-radius:8px; border:1px solid #ccc;">
+                </div>
+            `;
+
+            const input = document.getElementById("manualPages");
+
+            input.addEventListener("input", function () {
+                pagesInput.value = this.value;
+            });
+
+            return; // 🔥 IMPORTANTE: detiene ejecución
+        }
+
+        // 🟢 MODO NORMAL (PDF PEQUEÑO)
         data.images.forEach((src, index) => {
 
             const img = document.createElement("img");
@@ -190,19 +216,19 @@ if (splitInput) {
             // 🔥 ZOOM PREVIEW (PRO)
             if (zoomPreview) {
 
-            let zoomTimeout;
+                let zoomTimeout;
 
-            img.addEventListener("mouseenter", () => {
-                zoomTimeout = setTimeout(() => {
-                    zoomPreview.innerHTML = `<img src="${src}">`;
-                    zoomPreview.classList.remove("hidden");
-                }, 150);
-            });
+                img.addEventListener("mouseenter", () => {
+                    zoomTimeout = setTimeout(() => {
+                        zoomPreview.innerHTML = `<img src="${src}">`;
+                        zoomPreview.classList.remove("hidden");
+                    }, 150);
+                });
 
-            img.addEventListener("mouseleave", () => {
-                clearTimeout(zoomTimeout);
-                zoomPreview.classList.add("hidden");
-            });
+                img.addEventListener("mouseleave", () => {
+                    clearTimeout(zoomTimeout);
+                    zoomPreview.classList.add("hidden");
+                });
 
             }
 
