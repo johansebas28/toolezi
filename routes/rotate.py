@@ -10,7 +10,7 @@ OUTPUT_FOLDER = "outputs"
 @rotate_bp.route("/rotate_pdf", methods=["POST"])
 def rotate_pdf():
     file = request.files.get("pdf")
-    rotation = int(request.form.get("rotation", 90))  # 90, 180, 270
+    rotations = request.form.get("rotations")  # 🔥 AQUÍ LLEGA EL JSON
 
     if not file or file.filename == "":
         return "No se subió archivo"
@@ -21,9 +21,18 @@ def rotate_pdf():
     reader = PdfReader(input_path)
     writer = PdfWriter()
 
-    # 🔵 ROTAR TODAS LAS PÁGINAS
-    for page in reader.pages:
-        page.rotate(rotation)
+    # 🔥 convertir JSON a diccionario
+    import json
+    rotations_dict = json.loads(rotations) if rotations else {}
+
+    # 🔵 ROTAR POR PÁGINA
+    for i, page in enumerate(reader.pages):
+
+        rotation = rotations_dict.get(str(i), 0)  # 👈 clave: index como string
+
+        if rotation != 0:
+            page.rotate(rotation)
+
         writer.add_page(page)
 
     # 🟢 CREAR OUTPUT
@@ -33,7 +42,7 @@ def rotate_pdf():
     with open(output_path, "wb") as f:
         writer.write(f)
 
-    # 🔴 BORRAR INPUT (AQUÍ VA)
+    # 🔴 BORRAR INPUT
     if os.path.exists(input_path):
         os.remove(input_path)
 

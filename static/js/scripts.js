@@ -239,7 +239,7 @@ if (splitInput) {
 }
 
 /* =========================
-   FILE NAME DISPLAY (GLOBAL)
+    FILE NAME DISPLAY (GLOBAL)
 ========================= */
 
 const allInputs = document.querySelectorAll(".file-input");
@@ -279,7 +279,7 @@ allInputs.forEach(input => {
 
 });
 
-const forms = document.querySelectorAll("form");
+
 
 // 🔥 MENSAJES INTELIGENTES
 const toolMessages = {
@@ -304,6 +304,8 @@ const toolMessages = {
     "/number_pdf": "Numerando páginas..."
 };
 
+const forms = document.querySelectorAll("form");
+
 forms.forEach(form => {
 
     form.addEventListener("submit", function(e) {
@@ -317,25 +319,13 @@ forms.forEach(form => {
 
         modal.classList.remove("hidden");
 
-        // 🔥 DETECTAR TOOL
+
         const action = form.getAttribute("action");
 
-        // 🔥 MENSAJE PERSONALIZADO
+
         loadingText.textContent = toolMessages[action] || "Procesando archivo...";
 
-        let percent = 0;
 
-        const interval = setInterval(() => {
-            percent += Math.random() * 15;
-
-            if (percent >= 90) {
-                percent = 90;
-                clearInterval(interval);
-
-            }
-
-            progress.style.width = percent + "%";
-        }, 400);
 
         const formData = new FormData(form);
 
@@ -346,14 +336,27 @@ forms.forEach(form => {
         .then(res => res.text())
         .then(html => {
 
-            progress.style.width = "100%";
-            loadingText.textContent = "Finalizando...";
+            // 🔥 SI ES MODAL DE CONTRASEÑA
+            if (html.includes('id="passwordModal"')) {
 
+            document.open();
+            document.write(html);
+            document.close();
+
+            // 🔥 ESPERAR A QUE EL DOM EXISTA
             setTimeout(() => {
-                document.open();
-                document.write(html);
-                document.close();
-            }, 500);
+                const modal = document.getElementById("passwordModal");
+                if (modal) {
+                    modal.classList.remove("hidden");
+                }
+            }, 50);
+
+            return;
+            }
+            // 🔥 RESULTADO NORMAL
+            document.open();
+            document.write(html);
+            document.close();
 
         })
         .catch(err => {
@@ -363,7 +366,8 @@ forms.forEach(form => {
 
     });
 
-});
+}); // 🔥 ESTE CIERRE TE FALTABA
+
 
 const modal = document.getElementById("processingModal");
 const progress = document.getElementById("progressFill");
@@ -458,14 +462,13 @@ if (rotateInput) {
             const btn = document.createElement("button");
             btn.textContent = "⟲";
             btn.classList.add("btn");
+            btn.type = "button"; // 🔥 FIX CLAVE
 
             rotateData[index] = 0;
 
-            btn.onclick = (e) => {
-                e.preventDefault();
+            btn.onclick = () => {
 
-                rotateData[index] += 90;
-                if (rotateData[index] >= 360) rotateData[index] = 0;
+                rotateData[index] = (rotateData[index] + 90) % 360;
 
                 img.style.transform = `rotate(${rotateData[index]}deg)`;
             };
@@ -480,18 +483,7 @@ if (rotateInput) {
 
 }
 
-/* ENVIAR ROTACIONES */
-if (rotateForm) {
-    rotateForm.addEventListener("submit", function () {
 
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "rotations";
-        input.value = JSON.stringify(rotateData);
-
-        rotateForm.appendChild(input);
-    });
-}
 
 /* =========================
     DELETE PAGES
@@ -574,7 +566,7 @@ if (deleteForm) {
 }
 
 /* =========================
-   REORDER PDF
+    REORDER PDF
 ========================= */
 
 const reorderInput = document.getElementById("reorderInput");
@@ -653,7 +645,7 @@ function updateOrder() {
 }
 
 /* =========================
-   ADD IMAGES (FILE NAMES)
+    ADD IMAGES (FILE NAMES)
 ========================= */
 
 const addPdfInput = document.getElementById("addPdfInput");
@@ -700,7 +692,11 @@ if (addImagesInput) {
         }
     });
 }
-// UNLOCK PDF
+
+/* =========================
+    UNLOCK PDF
+========================= */
+
 document.querySelectorAll('input[type="file"]').forEach(input => {
     input.addEventListener("change", function () {
         const fileName = this.files[0]?.name || "No file selected";

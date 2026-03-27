@@ -460,6 +460,8 @@ FEEDBACK, DONATIONS
 .modal {
     display: none; /* 🔥 ESTO ES LA CLAVE */
     position: fixed;
+    align-items: center;
+    justify-content: center;
 
     z-index: 9999;
     left: 0;
