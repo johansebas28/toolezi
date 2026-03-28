@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Firmar PDF Manual</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+        background: #f4f6f8;
+      }
+
+      .container {
+        margin-top: 30px;
+      }
+
+      #pdfContainer {
+        position: relative;
+        display: inline-block;
+        border: 1px solid #ccc;
+      }
+
+      #pdfPreview {
+        width: 600px;
+      }
+
+      #signature {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        width: 150px;
+        cursor: move;
+      }
+
+      .btn {
+        margin-top: 20px;
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>🖊️ Firma manual</h2>
+
+    <div class="container">
+      <div id="pdfContainer">
+        <img id="pdfPreview" src="{{ preview_image }}" />
+        <img id="signature" src="{{ signature_preview }}" />
+      </div>
+
+      <!-- 🔥 AGREGAR ESTO -->
+      <input type="hidden" id="pdfName" value="{{ pdf_path }}" />
+      <input type="hidden" id="sigName" value="{{ sig_path }}" />
+
+      <br />
+
+      <button class="btn" onclick="saveSignature()">Aplicar firma</button>
+    </div>
+
+    <script>
+      const signature = document.getElementById("signature");
+
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      signature.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        const container = document.getElementById("pdfContainer");
+        const rect = container.getBoundingClientRect();
+
+        let x = e.clientX - rect.left - offsetX;
+        let y = e.clientY - rect.top - offsetY;
+
+        signature.style.left = x + "px";
+        signature.style.top = y + "px";
+      });
+
+      document.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+
+      function saveSignature() {
+        const sig = document.getElementById("signature");
+
+        const x = parseInt(sig.style.left);
+        const y = parseInt(sig.style.top);
+        const width = sig.offsetWidth;
+
+        const formData = new FormData();
+        formData.append("x", x);
+        formData.append("y", y);
+        formData.append("width", width);
+
+        fetch("/apply_signature_manual", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.text())
+          .then((html) => {
+            document.open();
+            document.write(html);
+            document.close();
+          });
+      }
+    </script>
+  </body>
+</html>

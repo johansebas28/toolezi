@@ -44,10 +44,9 @@ app.register_blueprint(sign_bp)
 app.register_blueprint(ocr_bp)
 app.register_blueprint(number_bp)
 
-#@app.before_request
-#def auto_cleanup():
-#    clean_old_files()
-
+@app.before_request
+def auto_cleanup():
+    clean_old_files()
 
 @app.route("/")
 def home():

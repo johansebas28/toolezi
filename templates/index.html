@@ -33,14 +33,17 @@
       </div>
     </div>
 
-      <div class="hero">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" class="hero-logo">
+    <div class="hero">
+      <img
+        src="{{ url_for('static', filename='img/logo.png') }}"
+        class="hero-logo"
+      />
 
-        <h1>Everything you need for your PDFs</h1>
-        <p>Fast, free and hassle-free</p>
+      <h1>Everything you need for your PDFs</h1>
+      <p>Fast, free and hassle-free</p>
 
-        <!--<button class="btn">Start now</button>-->
-      </div>
+      <!--<button class="btn">Start now</button>-->
+    </div>
 
     <!-- =========================
       ORGANIZAR PDF
@@ -168,6 +171,10 @@
         <div class="tool" onclick="showTool('sign')">
           <h3>✍️ Firmar PDF</h3>
           <p>Agrega tu firma al documento</p>
+        </div>
+        <div class="tool" onclick="showTool('sign_manual')">
+          <h3>🖊️ Firmar PDF manual</h3>
+          <p>Coloca tu firma donde quieras</p>
         </div>
       </div>
     </div>
@@ -504,7 +511,7 @@
       <form action="/number_pdf" method="POST" enctype="multipart/form-data">
         <div class="upload-card">
           <label class="drop-area">
-            <input type="file" name="pdf" class="file-input" required hidden />            
+            <input type="file" name="pdf" class="file-input" required hidden />
             <div class="upload-content">
               <div class="upload-icon">📄</div>
               <p class="upload-title">Selecciona un PDF</p>
@@ -513,7 +520,7 @@
           </label>
         </div>
         <div class="file-name"></div>
-        
+
         <button class="btn">Numerar PDF</button>
       </form>
     </div>
@@ -636,6 +643,10 @@
         <br /><br />
 
         <button class="btn" onclick="submitPassword()">Desbloquear</button>
+
+        <button class="btn-secondary" onclick="closePasswordModal()">
+          Cancelar
+        </button>
       </div>
     </div>
 
@@ -676,6 +687,46 @@
         <div class="file-name"></div>
 
         <button class="btn">Firmar PDF</button>
+      </form>
+    </div>
+
+    <!-- FIRMA MANUAL -->
+
+    <div id="sign_manual" class="container">
+      <form action="/sign_manual" method="POST" enctype="multipart/form-data">
+        <!-- PDF -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input type="file" name="pdf" class="file-input" hidden required />
+            <div class="upload-content">
+              <div class="upload-icon">📄</div>
+              <p class="upload-title">Selecciona PDF</p>
+              <p class="upload-sub">o arrástralo aquí</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FIRMA -->
+        <div class="upload-card">
+          <label class="drop-area">
+            <input
+              type="file"
+              name="image"
+              class="file-input"
+              hidden
+              required
+            />
+            <div class="upload-content">
+              <div class="upload-icon">✍️</div>
+              <p class="upload-title">Selecciona firma</p>
+              <p class="upload-sub">PNG recomendado</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="file-name"></div>
+
+        <button class="btn">Continuar</button>
       </form>
     </div>
 
@@ -755,13 +806,27 @@
       </form>
     </div>
 
-    {% if ask_password %}
+    
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("passwordModal").classList.remove("hidden");
+        const modal = document.getElementById("passwordModal");
+
+        if (!modal) return;
+
+        // 🔥 SIEMPRE iniciar oculto
+        modal.classList.remove("active");
+        modal.classList.add("hidden");
+
+        // 🔥 SOLO abrir si Flask lo indica
+        const shouldOpen = "{{ ask_password | default(false) }}";
+
+        if (shouldOpen === "True") {
+          modal.classList.remove("hidden");
+          modal.classList.add("active");
+        }
       });
     </script>
-    {% endif %}
+
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <div id="loader" class="loader hidden">
@@ -815,29 +880,25 @@
         <button class="close-btn" onclick="closeFeedback()">Cerrar</button>
       </div>
     </div>
-        <div class="footer">
-            <div class="footer-content">
-
-              <div class="footer-brand">
-                <h3>Toolesi</h3>
-                <p>Herramientas PDF gratuitas, rápidas y fáciles de usar.</p>
-              </div>
-
-              <div class="footer-donate">
-                <button class="donate-btn">☕ Apoyar proyecto</button>
-              </div>
-
-              <div class="footer-links">
-                <a href="#">Privacidad</a>
-                <a href="#">Términos</a>
-                <a href="#">Contacto</a>
-              </div>
-
-            </div>
-              <div>Tus archivos se eliminan automáticamente después de procesarse.</div>
-          <div class="footer-bottom">
-            © 2026 Toolesi — Hecho con 💙
-          </div>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Toolesi</h3>
+          <p>Herramientas PDF gratuitas, rápidas y fáciles de usar.</p>
         </div>
+
+        <div class="footer-donate">
+          <button class="donate-btn">☕ Apoyar proyecto</button>
+        </div>
+
+        <div class="footer-links">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="#">Contacto</a>
+        </div>
+      </div>
+      <div>Tus archivos se eliminan automáticamente después de procesarse.</div>
+      <div class="footer-bottom">© 2026 Toolesi — Hecho con 💙</div>
+    </div>
   </body>
 </html>

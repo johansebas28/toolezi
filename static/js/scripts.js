@@ -308,7 +308,10 @@ const forms = document.querySelectorAll("form");
 
 forms.forEach(form => {
 
+    if (form.action.includes("unlock_pdf")) return; // 🔥 ESTA ES LA CLAVE
+
     form.addEventListener("submit", function(e) {
+
 
         e.preventDefault();
 
@@ -337,7 +340,7 @@ forms.forEach(form => {
         .then(html => {
 
             // 🔥 SI ES MODAL DE CONTRASEÑA
-            if (html.includes('id="passwordModal"')) {
+            if (html.includes('ask_password')) {
 
             document.open();
             document.write(html);
@@ -347,7 +350,7 @@ forms.forEach(form => {
             setTimeout(() => {
                 const modal = document.getElementById("passwordModal");
                 if (modal) {
-                    modal.classList.remove("hidden");
+                    modal.classList.add("active");
                 }
             }, 50);
 
@@ -366,7 +369,7 @@ forms.forEach(form => {
 
     });
 
-}); // 🔥 ESTE CIERRE TE FALTABA
+});
 
 
 const modal = document.getElementById("processingModal");
@@ -770,4 +773,52 @@ function openFeedback() {
 
 function closeFeedback() {
     document.getElementById("feedbackModal").style.display = "none";
+}
+
+function closePasswordModal() {
+    const modal = document.getElementById("passwordModal");
+
+    modal.classList.remove("active");
+    modal.classList.add("hidden");
+
+    // 🔥 limpia estado del navegador
+    window.history.replaceState({}, document.title, "/");
+}
+
+window.addEventListener("click", function(e) {
+    const modal = document.getElementById("passwordModal");
+
+    if (e.target === modal) {
+        modal.classList.remove("active");
+    }
+});
+
+function saveSignature() {
+
+    const sig = document.getElementById("signature");
+
+    const x = parseInt(sig.style.left);
+    const y = parseInt(sig.style.top);
+    const width = sig.offsetWidth;
+
+    const pdfName = document.getElementById("pdfName").value;
+    const sigName = document.getElementById("sigName").value;
+
+    const formData = new FormData();
+    formData.append("x", x);
+    formData.append("y", y);
+    formData.append("width", width);
+    formData.append("pdf_name", pdfName);
+    formData.append("sig_name", sigName);
+
+    fetch("/apply_signature_manual", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+    });
 }
