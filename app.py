@@ -19,6 +19,7 @@ from routes.watermark import watermark_bp
 from routes.sign import sign_bp
 from routes.ocr import ocr_bp
 from routes.number_pages import number_bp
+from routes.sign_manual import sign_manual_bp
 
 app = Flask(__name__)
 
@@ -43,10 +44,12 @@ app.register_blueprint(watermark_bp)
 app.register_blueprint(sign_bp)
 app.register_blueprint(ocr_bp)
 app.register_blueprint(number_bp)
+app.register_blueprint(sign_manual_bp)
 
 @app.before_request
 def auto_cleanup():
     clean_old_files()
+
 
 @app.route("/")
 def home():
@@ -78,7 +81,17 @@ def download_file(filename):
 # SERVIR IMÁGENES
 @app.route("/image/<filename>")
 def serve_image(filename):
-    return send_file(os.path.join(OUTPUT_FOLDER, filename))
+
+    upload_path = os.path.join("uploads", filename)
+    output_path = os.path.join("outputs", filename)
+
+    if os.path.exists(upload_path):
+        return send_file(upload_path)
+
+    if os.path.exists(output_path):
+        return send_file(output_path)
+
+    return "Imagen no encontrada"
 
 
 if __name__ == "__main__":

@@ -1,11 +1,13 @@
 from flask import Blueprint, request, render_template
 from pdf2image import convert_from_path
 import pytesseract
-from reportlab.pdfgen import canvas
+from pytesseract import image_to_pdf_or_hocr
 from PIL import Image
 import os, uuid
 
+# 🔥 CONFIGURACIÓN TESSERACT (Windows)
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 ocr_bp = Blueprint("ocr", __name__)
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -22,55 +24,57 @@ def ocr_pdf():
 
     filename = file.filename.lower()
 
-    # 🔥 guardar archivo con extensión correcta
+    # 🔥 guardar archivo
     ext = os.path.splitext(filename)[1]
     input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}{ext}")
     file.save(input_path)
 
     try:
-        # 🔥 detectar tipo de archivo
+        # =========================
+        # 📄 CONVERTIR A IMÁGENES
+        # =========================
         if filename.endswith(".pdf"):
-            images = convert_from_path(input_path)
+            images = convert_from_path(input_path, dpi=300)  # 🔥 más calidad
         else:
             images = [Image.open(input_path)]
 
-        # 🔥 crear PDF de salida
+        # =========================
+        # 🔍 OCR → PDF REAL
+        # =========================
+        pdf_bytes = b""
+
+        for img in images:
+
+            # 🔥 mejorar imagen (sin destruirla)
+            img = img.convert("L")
+
+            # 🔥 OCR → PDF con texto invisible
+            pdf_page = image_to_pdf_or_hocr(
+                img,
+                extension='pdf',
+                lang='eng',
+                config='--oem 3 --psm 6'
+            )
+
+            pdf_bytes += pdf_page
+
+        # =========================
+        # 💾 GUARDAR RESULTADO
+        # =========================
         output_filename = f"{uuid.uuid4()}.pdf"
         output_path = os.path.join(OUTPUT_FOLDER, output_filename)
 
-        c = canvas.Canvas(output_path)
+        with open(output_path, "wb") as f:
+            f.write(pdf_bytes)
 
-        for img in images:
-            # mejorar imagen
-            img = img.rotate(90, expand=True)  # si viene rotado
-            img = img.convert("L")
-            img = img.point(lambda x: 0 if x < 140 else 255)  # binarización
-
-            # OCR
-            custom_config = r'--oem 3 --psm 4'
-
-            text = pytesseract.image_to_string(
-                img,
-                lang="spa+eng",
-                config=custom_config
-            )
-
-            lines = text.split("\n")
-
-            y = 800
-            for line in lines:
-                if line.strip():  # evita líneas vacías
-                    c.drawString(40, y, line)
-                    y -= 14
-
-            c.showPage()
-
-        c.save()
-
-        # limpiar archivo subido
+        # =========================
+        # 🧹 LIMPIEZA
+        # =========================
         if os.path.exists(input_path):
             os.remove(input_path)
-        print("OUTPUT:", output_filename)
+
+        print("OCR OK:", output_filename)
+
         return render_template("result.html", filename=output_filename)
 
     except Exception as e:
