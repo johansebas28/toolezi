@@ -127,17 +127,21 @@ function updateInputFiles() {
 ==========================*/
 
 const splitInput = document.getElementById("splitInput");
+const fileInput = document.querySelector('input[type="file"]');
+const fileNameDiv = document.querySelector('.file-name');
 const pagesContainer = document.getElementById("pages-container");
 const pagesInput = document.getElementById("pagesInput");
 const zoomPreview = document.getElementById("zoomPreview"); // 👈 IMPORTANTE
 
 let selectedPages = new Set();
 
-if (splitInput) {
+if (splitInput && fileNameDiv) {
     splitInput.addEventListener("change", async function () {
 
         const file = this.files[0];
         if (!file) return;
+
+        fileNameDiv.textContent = file.name;
 
         const loader = document.getElementById("previewLoader");
 
@@ -429,7 +433,7 @@ if (rotateInput) {
         const file = this.files[0];
         if (!file) return;
 
-        
+
         rotateContainer.innerHTML = `
             <div class="preview-loader">
                 <div class="spinner"></div>
@@ -453,6 +457,13 @@ if (rotateInput) {
                 loaderText.textContent = "Procesando páginas...";
             }
         }, 800);
+
+        if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.error || "Error al procesar el archivo");
+        rotateContainer.innerHTML = "";
+        return;
+        }
 
         const data = await res.json();
 
