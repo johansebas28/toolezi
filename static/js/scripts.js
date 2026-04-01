@@ -332,6 +332,11 @@ forms.forEach(form => {
 
         const formData = new FormData(form);
 
+        // 🔥 SOLO PARA ROTATE (AQUÍ ES DONDE VA)
+        if (form.id === "rotateForm") {
+            formData.append("rotations", JSON.stringify(rotateData));
+        }
+
         fetch(form.action, {
             method: "POST",
             body: formData
@@ -424,7 +429,7 @@ if (rotateInput) {
         const file = this.files[0];
         if (!file) return;
 
-        // 🔥 CREAR LOADER DINÁMICO
+        
         rotateContainer.innerHTML = `
             <div class="preview-loader">
                 <div class="spinner"></div>
@@ -432,6 +437,7 @@ if (rotateInput) {
             </div>
         `;
 
+        // 🔥 SOLO ARCHIVO (NO ROTATIONS AQUÍ)
         const formData = new FormData();
         formData.append("file", file);
 
@@ -440,7 +446,7 @@ if (rotateInput) {
             body: formData
         });
 
-        // 🔄 CAMBIAR TEXTO
+
         setTimeout(() => {
             const loaderText = rotateContainer.querySelector("p");
             if (loaderText) {
@@ -465,12 +471,12 @@ if (rotateInput) {
             const btn = document.createElement("button");
             btn.textContent = "⟲";
             btn.classList.add("btn");
-            btn.type = "button"; // 🔥 FIX CLAVE
+            btn.type = "button";
 
             rotateData[index] = 0;
 
             btn.onclick = () => {
-
+                
                 rotateData[index] = (rotateData[index] + 90) % 360;
 
                 img.style.transform = `rotate(${rotateData[index]}deg)`;
@@ -805,6 +811,7 @@ function saveSignature() {
     const sigName = document.getElementById("sigName").value;
 
     const formData = new FormData();
+
     formData.append("x", x);
     formData.append("y", y);
     formData.append("width", width);
