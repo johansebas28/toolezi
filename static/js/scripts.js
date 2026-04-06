@@ -840,3 +840,16 @@ function saveSignature() {
         document.close();
     });
 }
+
+function openDonateModal() {
+    document.getElementById("donateModal").classList.add("active");
+}
+
+function closeDonateModal() {
+    document.getElementById("donateModal").classList.remove("active");
+}
+
+function copyNequi() {
+    navigator.clipboard.writeText("3188198651");
+    document.getElementById("copyMsg").innerText = "Copied ✔";
+}

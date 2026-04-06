@@ -49,9 +49,26 @@
     <h2>🖊️ Firma manual</h2>
 
     <div class="container">
-      <div id="pdfContainer">
-        <img id="pdfPreview" src="{{ preview_image }}" />
-        <img id="signature" src="{{ signature_preview }}" />
+      <div id="pdfContainer" class="sign-container">
+        <!-- PDF -->
+        <div class="pdf-preview">
+          <p>Preview URL: {{ preview_image }}</p>
+          <img id="pdfPreview" src="{{ preview_image }}" />
+        </div>
+
+        <!-- FIRMA -->
+        <p>Signature URL: {{ signature_preview }}</p>
+        <img
+          id="signature"
+          src="{{ signature_preview }}"
+          style="
+            position: absolute;
+            width: 150px;
+            cursor: move;
+            top: 100px;
+            left: 100px;
+          "
+        />
       </div>
 
       <!-- 🔥 AGREGAR ESTO -->
@@ -95,14 +112,19 @@
       function saveSignature() {
         const sig = document.getElementById("signature");
 
-        const x = parseInt(sig.style.left);
-        const y = parseInt(sig.style.top);
+        const x = parseInt(sig.style.left || 100);
+        const y = parseInt(sig.style.top || 100);
         const width = sig.offsetWidth;
 
         const formData = new FormData();
+
         formData.append("x", x);
         formData.append("y", y);
         formData.append("width", width);
+
+        // 🔥 ESTO ES LO QUE TE FALTABA
+        formData.append("pdf_name", document.getElementById("pdfName").value);
+        formData.append("sig_name", document.getElementById("sigName").value);
 
         fetch("/apply_signature_manual", {
           method: "POST",

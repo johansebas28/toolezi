@@ -50,6 +50,7 @@ app.register_blueprint(sign_manual_bp)
 def auto_cleanup():
     clean_old_files()
 
+from flask import send_from_directory
 
 @app.route("/")
 def home():
@@ -79,19 +80,21 @@ def download_file(filename):
 
 
 # SERVIR IMÁGENES
-@app.route("/image/<filename>")
+@app.route("/image/<path:filename>")
 def serve_image(filename):
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    uploads_dir = os.path.join(base_dir, "uploads")
 
-    upload_path = os.path.join("uploads", filename)
-    output_path = os.path.join("outputs", filename)
+    # 🔥 si por error llega una ruta completa, nos quedamos SOLO con el nombre
+    filename = os.path.basename(filename)
 
-    if os.path.exists(upload_path):
-        return send_file(upload_path)
+    full_path = os.path.join(uploads_dir, filename)
 
-    if os.path.exists(output_path):
-        return send_file(output_path)
+    if os.path.exists(full_path):
+        return send_from_directory(uploads_dir, filename)
 
-    return "Imagen no encontrada"
+    print("❌ NO ENCONTRADA:", full_path)
+    return "Imagen no encontrada", 404
 
 
 if __name__ == "__main__":

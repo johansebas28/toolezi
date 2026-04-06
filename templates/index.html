@@ -35,7 +35,7 @@
 
     <div class="hero">
       <img
-        src="{{ url_for('static', filename='img/logo.png') }}"
+        src="{{ url_for('static', filename='img/icons/logo.png') }}"
         class="hero-logo"
       />
 
@@ -49,36 +49,65 @@
       ORGANIZAR PDF
   ========================= -->
     <div class="category">
-      <h2>📂 Organizar PDF</h2>
+      <img
+        src="{{ url_for('static', filename='img/icons/categoriaOrganizar.png') }}"
+        class="tool-icon"
+      />
+      <h2>Organizar PDF</h2>
 
       <div class="tools-grid">
-        <div class="tool" onclick="showTool('merge')">
-          <h3>🔗 Merge PDF</h3>
+        <div class="tool organizar" onclick="showTool('merge')">
+          <img
+            src="{{ url_for('static', filename='img/icons/merge.png') }}"
+            class="tool-icon"
+          />
+
+          <h3>Merge PDF</h3>
           <p>Une varios PDFs</p>
         </div>
 
-        <div class="tool" onclick="showTool('split')">
-          <h3>✂️ Split PDF</h3>
+        <div class="tool organizar" onclick="showTool('split')">
+          <img
+            src="{{ url_for('static', filename='img/icons/split.png') }}"
+            class="tool-icon"
+          />
+          <h3>Split PDF</h3>
           <p>Divide páginas</p>
         </div>
 
-        <div class="tool" onclick="showTool('rotate')">
-          <h3>🔄 Rotar PDF</h3>
+        <div class="tool organizar" onclick="showTool('rotate')">
+          <img
+            src="{{ url_for('static', filename='img/icons/rotar.png') }}"
+            class="tool-icon"
+          />
+          <h3>Rotar PDF</h3>
           <p>Gira páginas</p>
         </div>
 
-        <div class="tool" onclick="showTool('reorder')">
-          <h3>📑 Organizar PDF</h3>
+        <div class="tool organizar" onclick="showTool('reorder')">
+          <img
+            src="{{ url_for('static', filename='img/icons/organizar.png') }}"
+            class="tool-icon"
+          />
+          <h3>Organizar PDF</h3>
           <p>Reordena páginas</p>
         </div>
 
-        <div class="tool" onclick="showTool('addimages')">
-          <h3>📄➕🖼 Añadir imágenes</h3>
+        <div class="tool organizar" onclick="showTool('addimages')">
+          <img
+            src="{{ url_for('static', filename='img/icons/agregarImage.png') }}"
+            class="tool-icon"
+          />
+          <h3>Añadir imágenes</h3>
           <p>Inserta imágenes</p>
         </div>
 
-        <div class="tool" onclick="showTool('number')">
-          <h3>🔢 Numerar PDF</h3>
+        <div class="tool organizar" onclick="showTool('number')">
+          <img
+            src="{{ url_for('static', filename='img/icons/numerar.png') }}"
+            class="tool-icon"
+          />
+          <h3>Numerar PDF</h3>
           <p>Agrega números a cada página</p>
         </div>
       </div>
@@ -88,46 +117,82 @@
       CONVERTIR PDF
   ========================= -->
     <div class="category">
-      <h2>🔄 Convertir PDF</h2>
+      <img
+        src="{{ url_for('static', filename='img/icons/categoriaConvertir.png') }}"
+        class="tool-icon"
+      />
+      <h2>Convertir PDF</h2>
 
       <div class="tools-grid">
-        <div class="tool" onclick="showTool('pdf2img')">
-          <h3>🖼 PDF a Imagen</h3>
+        <div class="tool convertir" onclick="showTool('pdf2img')">
+          <img
+            src="{{ url_for('static', filename='img/icons/pdfImagen.png') }}"
+            class="tool-icon"
+          />
+          <h3>PDF a Imagen</h3>
           <p>Convierte PDF en imágenes</p>
         </div>
 
-        <div class="tool" onclick="showTool('img2pdf')">
-          <h3>🖼➡📄 Imagen a PDF</h3>
+        <div class="tool convertir" onclick="showTool('img2pdf')">
+          <img
+            src="{{ url_for('static', filename='img/icons/imagenPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>Imagen a PDF</h3>
           <p>Convierte imágenes</p>
         </div>
 
-        <div class="tool" onclick="showTool('pdf2word')">
-          <h3>📄➡️ Word</h3>
+        <div class="tool convertir" onclick="showTool('pdf2word')">
+          <img
+            src="{{ url_for('static', filename='img/icons/PDFword.png') }}"
+            class="tool-icon"
+          />
+          <h3>Word</h3>
           <p>PDF a Word</p>
         </div>
 
-        <div class="tool" onclick="showTool('word2pdf')">
-          <h3>📄➡️ PDF</h3>
+        <div class="tool convertir" onclick="showTool('word2pdf')">
+          <img
+            src="{{ url_for('static', filename='img/icons/wordPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>PDF</h3>
           <p>Word a PDF</p>
         </div>
 
-        <div class="tool" onclick="showTool('excel2pdf')">
-          <h3>📊➡️ PDF</h3>
+        <div class="tool convertir" onclick="showTool('excel2pdf')">
+          <img
+            src="{{ url_for('static', filename='img/icons/ExcelPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>PDF</h3>
           <p>Excel a PDF</p>
         </div>
 
-        <div class="tool" onclick="showTool('pdf2excel')">
-          <h3>📄➡️📊 Excel</h3>
+        <div class="tool convertir" onclick="showTool('pdf2excel')">
+          <img
+            src="{{ url_for('static', filename='img/icons/PDFexcel.png') }}"
+            class="tool-icon"
+          />
+          <h3>Excel</h3>
           <p>PDF a Excel</p>
         </div>
 
-        <div class="tool" onclick="showTool('ppt2pdf')">
-          <h3>📊➡️ PDF</h3>
+        <div class="tool convertir" onclick="showTool('ppt2pdf')">
+          <img
+            src="{{ url_for('static', filename='img/icons/pptPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>PDF</h3>
           <p>PowerPoint a PDF</p>
         </div>
 
-        <div class="tool" onclick="showTool('ocr')">
-          <h3>🔍 OCR PDF</h3>
+        <div class="tool convertir" onclick="showTool('ocr')">
+          <img
+            src="{{ url_for('static', filename='img/icons/ocrPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>OCR PDF</h3>
           <p>Extrae texto de PDFs escaneados</p>
         </div>
       </div>
@@ -137,15 +202,27 @@
       OPTIMIZAR
   ========================= -->
     <div class="category">
-      <h2>⚡ Optimizar</h2>
+      <img
+        src="{{ url_for('static', filename='img/icons/categoriaOptimizar.png') }}"
+        class="tool-icon"
+      />
+      <h2>Optimizar</h2>
       <div class="tools-grid">
-        <div class="tool" onclick="showTool('compress')">
-          <h3>📉 Comprimir PDF</h3>
+        <div class="tool optimizar" onclick="showTool('compress')">
+          <img
+            src="{{ url_for('static', filename='img/icons/comprimir.png') }}"
+            class="tool-icon"
+          />
+          <h3>Comprimir PDF</h3>
           <p>Reduce el tamaño</p>
         </div>
 
-        <div class="tool" onclick="showTool('watermark')">
-          <h3>💧 Marca de agua</h3>
+        <div class="tool optimizar" onclick="showTool('watermark')">
+          <img
+            src="{{ url_for('static', filename='img/icons/waterMark.png') }}"
+            class="tool-icon"
+          />
+          <h3>Marca de agua</h3>
           <p>Agrega texto a tu PDF</p>
         </div>
       </div>
@@ -155,27 +232,44 @@
       SEGURIDAD
   ========================= -->
     <div class="category">
-      <h2>🔐 Seguridad</h2>
+      <img
+        src="{{ url_for('static', filename='img/icons/categoriaSeguridad.png') }}"
+        class="tool-icon"
+      />
+      <h2>Seguridad</h2>
 
       <div class="tools-grid">
-        <div class="tool" onclick="showTool('unlock')">
-          <h3>🔓 Unlock PDF</h3>
+        <div class="tool seguridad" onclick="showTool('unlock')">
+          <img
+            src="{{ url_for('static', filename='img/icons/unlockPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>Unlock PDF</h3>
           <p>Quita la contraseña</p>
         </div>
 
-        <div class="tool" onclick="showTool('protect')">
-          <h3>🔐 Proteger PDF</h3>
+        <div class="tool seguridad" onclick="showTool('protect')">
+          <img
+            src="{{ url_for('static', filename='img/icons/lockPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>Proteger PDF</h3>
           <p>Agrega contraseña a tu PDF</p>
         </div>
 
-        <div class="tool" onclick="showTool('sign')">
-          <h3>✍️ Firmar PDF</h3>
+        <div class="tool seguridad" onclick="showTool('sign')">
+          <img
+            src="{{ url_for('static', filename='img/icons/signPDF.png') }}"
+            class="tool-icon"
+          />
+          <h3>Firmar PDF</h3>
           <p>Agrega tu firma al documento</p>
         </div>
-        <div class="tool" onclick="showTool('sign_manual')">
+        <!--<div class="tool seguridad" onclick="showTool('sign_manual')">
+          <img src="{{ url_for('static', filename='img/icons/.png') }}" class="tool-icon">
           <h3>🖊️ Firmar PDF manual</h3>
           <p>Coloca tu firma donde quieras</p>
-        </div>
+        </div>-->
       </div>
     </div>
     <!-- MERGE -->
@@ -678,8 +772,6 @@
               hidden
               required
             />
-            
-            
 
             <div class="upload-content">
               <div class="upload-icon">✍️</div>
@@ -813,7 +905,6 @@
       </form>
     </div>
 
-    
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const modal = document.getElementById("passwordModal");
@@ -833,7 +924,6 @@
         }
       });
     </script>
-
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <div id="loader" class="loader hidden">
@@ -895,7 +985,12 @@
         </div>
 
         <div class="footer-donate">
-          <button class="donate-btn">☕ Apoyar proyecto</button>
+          <button class="donate-btn" onclick="openDonateModal()">
+            ☕ Support this project
+          </button>
+          <p style="font-size:13px; color:#777;">
+            💡 Free tool — your support helps keep it running
+          </p>
         </div>
 
         <div class="footer-links">
@@ -906,6 +1001,38 @@
       </div>
       <div>Tus archivos se eliminan automáticamente después de procesarse.</div>
       <div class="footer-bottom">© 2026 Toolezi — Hecho con 💙</div>
+    </div>
+    <div id="donateModal" class="modal">
+      <div class="modal-content">
+        <h2>☕ Support Toolezi</h2>
+
+        <p style="margin-bottom: 15px">
+          This tool is free to use. If it helped you, consider supporting the
+          project ❤️
+        </p>
+
+        <div class="donate-options">
+          <!-- NEQUI -->
+          <div class="donate-card">
+            <h4>Nequi</h4>
+            <img src="/static/img/metodos_de_pago/nequi_qr.png" width="120">
+            <p>Scan to donate or copy the number</p>
+            <button onclick="copyNequi()">📱 3023064471</button>
+          </div>
+
+          <!-- PAYPAL -->
+          <div class="donate-card">
+            <h4>PayPal</h4>
+            <a href="https://paypal.me/toolezi" target="_blank">
+              💳 Donate with PayPal
+            </a>
+          </div>
+        </div>
+
+        <p id="copyMsg" style="font-size: 12px; color: green"></p>
+
+        <button class="close-btn" onclick="closeDonateModal()">Close</button>
+      </div>
     </div>
   </body>
 </html>
