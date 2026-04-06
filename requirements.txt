@@ -1,17 +1,23 @@
-﻿Flask==3.0.0
-gunicorn==21.2.0
+﻿
 
 pypdf
-pdf2image
-Pillow
+
 
 pandas
-openpyxl
+
 
 python-docx
 python-pptx
 
-reportlab
+
 
 pytesseract
 opencv-python
+gunicorn
+Flask
+pdf2docx
+PyPDF2
+pdf2image
+Pillow
+reportlab
+openpyxl
