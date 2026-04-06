@@ -2,12 +2,23 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copiar solo requirements primero (mejor cache)
+# 🔥 Instalar dependencias del sistema (CLAVE)
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    libx11-6 \
+    libxcb1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements
 COPY requirements.txt .
 
+# Instalar Python libs
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Luego copiar el resto del proyecto
+# Copiar proyecto
 COPY . .
 
 EXPOSE 10000
