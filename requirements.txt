@@ -3,7 +3,7 @@ gunicorn
 
 pdf2docx
 pypdf
-PyPDF2
+
 pdf2image
 pytesseract
 Pillow
