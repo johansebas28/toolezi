@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# 🔥 Instalar dependencias del sistema (CLAVE)
+# 🔥 Instalar TODAS las dependencias necesarias para OpenCV
 RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     libsm6 \
@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libx11-6 \
     libxcb1 \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar requirements
