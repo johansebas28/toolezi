@@ -80,18 +80,17 @@ def download_file(filename):
 
 
 # SERVIR IMÁGENES
-@app.route("/image/<path:filename>")
-def serve_image(filename):
+@app.route("/image/<filename>")
+def get_image(filename):
     base_dir = os.path.abspath(os.path.dirname(__file__))
-    uploads_dir = os.path.join(base_dir, "uploads")
+    outputs_dir = os.path.join(base_dir, "outputs")
 
-    # 🔥 si por error llega una ruta completa, nos quedamos SOLO con el nombre
     filename = os.path.basename(filename)
 
-    full_path = os.path.join(uploads_dir, filename)
+    full_path = os.path.join(outputs_dir, filename)
 
     if os.path.exists(full_path):
-        return send_from_directory(uploads_dir, filename)
+        return send_from_directory(OUTPUT_FOLDER, filename, conditional=True)
 
     print("❌ NO ENCONTRADA:", full_path)
     return "Imagen no encontrada", 404
