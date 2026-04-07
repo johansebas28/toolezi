@@ -3,13 +3,33 @@ from werkzeug.utils import secure_filename
 from pypdf import PdfWriter, PdfReader
 from pdf2image import convert_from_path
 import os, uuid
+import threading
+import time
 
 split_bp = Blueprint("split", __name__)
 
 UPLOAD_FOLDER = "uploads"
 OUTPUT_FOLDER = "outputs"
 
+# 🔥 asegurarse que existan las carpetas
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
 MAX_PREVIEW = 15
+
+
+# =========================
+# 🔥 LIMPIEZA AUTOMÁTICA
+# =========================
+def delete_temp_images(paths):
+    time.sleep(60)  # espera 1 minuto
+    for path in paths:
+        try:
+            full_path = os.path.join(OUTPUT_FOLDER, os.path.basename(path))
+            if os.path.exists(full_path):
+                os.remove(full_path)
+        except:
+            pass
 
 
 # =========================
@@ -21,9 +41,11 @@ def split_pdf():
     file = request.files.get("pdf")
     pages_str = request.form.get("pages")
 
-    # 🔥 VALIDACIÓN
     if not file or file.filename == "":
         return render_template("result.html", error="No se subió ningún archivo")
+
+    if not pages_str:
+        return render_template("result.html", error="Debes seleccionar páginas")
 
     filename_secure = secure_filename(file.filename)
 
@@ -40,17 +62,35 @@ def split_pdf():
 
         pages = set()
 
+        # 🔥 PARSEO SEGURO
         for part in pages_str.split(","):
-            if "-" in part:
-                start, end = part.split("-")
-                for i in range(int(start), int(end) + 1):
-                    pages.add(i)
-            else:
-                pages.add(int(part))
+            part = part.strip()
 
-        for page_num in sorted(pages):
-            if 1 <= page_num <= len(reader.pages):
-                writer.add_page(reader.pages[page_num - 1])
+            if "-" in part:
+                try:
+                    start, end = map(int, part.split("-"))
+                    for i in range(start, end + 1):
+                        pages.add(i)
+                except:
+                    continue
+            else:
+                try:
+                    pages.add(int(part))
+                except:
+                    continue
+
+        if not pages:
+            return render_template("result.html", error="Páginas inválidas")
+
+        total_pages = len(reader.pages)
+
+        valid_pages = [p for p in pages if 1 <= p <= total_pages]
+
+        if not valid_pages:
+            return render_template("result.html", error="Páginas fuera de rango")
+
+        for page_num in sorted(valid_pages):
+            writer.add_page(reader.pages[page_num - 1])
 
         filename = f"{uuid.uuid4()}.pdf"
         output_path = os.path.join(OUTPUT_FOLDER, filename)
@@ -82,7 +122,6 @@ def preview_pages():
 
     filename_secure = secure_filename(file.filename)
 
-    # 🔥 VALIDACIÓN CLAVE
     if not filename_secure.lower().endswith(".pdf"):
         return jsonify({"error": "Solo se permiten archivos PDF"}), 400
 
@@ -115,6 +154,9 @@ def preview_pages():
             img_path = os.path.join(OUTPUT_FOLDER, img_name)
             img.save(img_path, "PNG")
             image_paths.append(f"/image/{img_name}")
+
+        # 🔥 LIMPIEZA AUTOMÁTICA EN SEGUNDO PLANO
+        threading.Thread(target=delete_temp_images, args=(image_paths,)).start()
 
         return jsonify({
             "mode": "preview",
