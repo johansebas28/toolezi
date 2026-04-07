@@ -105,8 +105,7 @@ def preview_pages():
         images = convert_from_path(
             pdf_path,
             first_page=1,
-            last_page=MAX_PREVIEW,
-            poppler_path=r"C:\poppler-25.12.0\Library\bin"
+            last_page=MAX_PREVIEW
         )
 
         image_paths = []
