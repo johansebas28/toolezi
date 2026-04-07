@@ -5,6 +5,7 @@ WORKDIR /app
 # 🔥 Instalar dependencias del sistema (incluye poppler)
 RUN apt-get update && apt-get install -y \
     poppler-utils \
+    libreoffice \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
