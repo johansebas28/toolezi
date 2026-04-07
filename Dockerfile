@@ -2,8 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# 🔥 Instalar TODAS las dependencias necesarias para OpenCV
+# 🔥 Instalar dependencias del sistema (incluye poppler)
 RUN apt-get update && apt-get install -y \
+    poppler-utils \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
