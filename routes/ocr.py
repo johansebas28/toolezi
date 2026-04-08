@@ -3,16 +3,27 @@ from pdf2image import convert_from_path
 import pytesseract
 from pytesseract import image_to_pdf_or_hocr
 from PIL import Image
-import os, uuid
-
-# 🔥 CONFIGURACIÓN TESSERACT (Windows)
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import os, uuid, platform
 
 ocr_bp = Blueprint("ocr", __name__)
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 OUTPUT_FOLDER = os.path.join(BASE_DIR, "outputs")
+
+# 🔥 asegurar carpetas
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+# =========================
+# 🔥 CONFIGURACIÓN TESSERACT
+# =========================
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
+else:
+    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 
 @ocr_bp.route("/ocr_pdf", methods=["POST"])
@@ -34,26 +45,28 @@ def ocr_pdf():
         # 📄 CONVERTIR A IMÁGENES
         # =========================
         if filename.endswith(".pdf"):
-            images = convert_from_path(input_path, dpi=300)  # 🔥 más calidad
+            images = convert_from_path(input_path, dpi=300)
         else:
             images = [Image.open(input_path)]
+
+        pdf_bytes = b""
 
         # =========================
         # 🔍 OCR → PDF REAL
         # =========================
-        pdf_bytes = b""
+
 
         for img in images:
 
-            # 🔥 mejorar imagen (sin destruirla)
+            # 🔥 mejorar imagen (escala de grises)
             img = img.convert("L")
 
             # 🔥 OCR → PDF con texto invisible
             pdf_page = image_to_pdf_or_hocr(
                 img,
-                extension='pdf',
-                lang='eng',
-                config='--oem 3 --psm 6'
+                extension="pdf",
+                lang="spa",  # 🔥 español (puedes cambiar a "eng+spa")
+                config="--oem 3 --psm 6",
             )
 
             pdf_bytes += pdf_page
@@ -67,11 +80,7 @@ def ocr_pdf():
         with open(output_path, "wb") as f:
             f.write(pdf_bytes)
 
-        # =========================
-        # 🧹 LIMPIEZA
-        # =========================
-        if os.path.exists(input_path):
-            os.remove(input_path)
+
 
         print("OCR OK:", output_filename)
 
@@ -79,8 +88,10 @@ def ocr_pdf():
 
     except Exception as e:
         print("OCR ERROR:", e)
+        return render_template("result.html", error="Error processing OCR")
 
+    finally:
+        # 🔥 limpieza SIEMPRE
         if os.path.exists(input_path):
             os.remove(input_path)
 
-        return render_template("result.html", error="Error processing OCR")

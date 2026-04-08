@@ -607,7 +607,7 @@ if (reorderInput) {
         const formData = new FormData();
         formData.append("file", file);
 
-        const res = await fetch("/preview_reorder", {
+        const res = await fetch("/preview_pages", {
             method: "POST",
             body: formData
         });

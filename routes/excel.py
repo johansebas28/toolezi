@@ -32,16 +32,25 @@ def excel_to_pdf():
 
     try:
         # 🔥 CONVERSIÓN
-        subprocess.run([
-            r"C:\Program Files\LibreOffice\program\soffice.exe",
-            "--headless",
-            "--convert-to",
-            "pdf",
-            "--outdir",
-            OUTPUT_FOLDER,
-            input_path,
-        ], check=True)
-
+        result = subprocess.run(
+            [
+                "soffice",
+                "--headless",
+                "--convert-to",
+                "pdf",
+                "--outdir",
+                OUTPUT_FOLDER,
+                input_path,
+            ],
+            capture_output=True,
+            text=True,
+        )
+        print("STDOUT:", result.stdout)
+        print("STDERR:", result.stderr)
+        
+        if result.returncode != 0:
+            return render_template("result.html", error="Error al convertir Excel")
+        
         # 🔥 NOMBRE OUTPUT
         output_name = os.path.splitext(input_filename)[0] + ".pdf"
         output_path = os.path.join(OUTPUT_FOLDER, output_name)
@@ -53,14 +62,17 @@ def excel_to_pdf():
         return render_template("result.html", filename=output_name)
 
     except subprocess.CalledProcessError:
-        return render_template("result.html", error="Error al convertir (LibreOffice falló)")
+        return render_template(
+            "result.html", error="Error al convertir (LibreOffice falló)"
+        )
 
     except Exception as e:
         print("ERROR EXCEL:", e)
-        return render_template("result.html", error="Error inesperado al procesar el archivo")
+        return render_template(
+            "result.html", error="Error inesperado al procesar el archivo"
+        )
 
     finally:
         # 🔥 LIMPIEZA SIEMPRE
         if os.path.exists(input_path):
             os.remove(input_path)
-            

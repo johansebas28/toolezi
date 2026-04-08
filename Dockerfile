@@ -6,6 +6,11 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     poppler-utils \
     libreoffice \
+    libreoffice-calc \
+    libreoffice-impress \
+    tesseract-ocr \
+    tesseract-ocr-spa \
+    ghostscript \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
