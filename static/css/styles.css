@@ -836,7 +836,7 @@ FEEDBACK, DONATIONS
 /* =========================
     ZOOM PREVIEW
 ========================= */
-/*.zoom-preview {
+.zoom-preview {
     background: white;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -850,34 +850,11 @@ FEEDBACK, DONATIONS
 }
 
 .zoom-preview img {
-    border-radius: 6px;
+    
     width: 100%;
-}*/
-
-.zoom-Preview {
-    position: fixed;
-    top: 50%;
-    right: 40px;
-    transform: translateY(-50%);
-
-    width: 300px;
-    height: 400px;
-
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    z-index: 9999;
 }
 
-.zoom-Preview-img {
-    max-width: 100%;
-    max-height: 100%;
-}
+
 
 .hidden {
     display: none !important;
