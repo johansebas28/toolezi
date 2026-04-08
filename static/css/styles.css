@@ -854,7 +854,7 @@ FEEDBACK, DONATIONS
     width: 100%;
 }*/
 
-#zoomPreview {
+#zoom-Preview {
     position: fixed;
     top: 50%;
     right: 40px;
@@ -874,7 +874,7 @@ FEEDBACK, DONATIONS
     z-index: 9999;
 }
 
-#zoomPreview-img {
+#zoom-Preview-img {
     max-width: 100%;
     max-height: 100%;
 }
