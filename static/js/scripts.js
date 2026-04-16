@@ -355,6 +355,7 @@ forms.forEach(form => {
             document.write(html);
             document.close();
 
+
             // 🔥 ESPERAR A QUE EL DOM EXISTA
             setTimeout(() => {
                 const modal = document.getElementById("passwordModal");
@@ -467,38 +468,59 @@ if (rotateInput) {
 
         const data = await res.json();
 
-        rotateContainer.innerHTML = "";
-        rotateData = {};
+rotateContainer.innerHTML = "";
+rotateData = {};
 
-        data.images.forEach((src, index) => {
+console.log("DATA BACKEND:", data);
 
-            const wrapper = document.createElement("div");
-            wrapper.style.textAlign = "center";
+// 🔥 1. MANEJO DE PDF GRANDE (IGUAL QUE SPLIT)
+if (data.mode === "simple") {
 
-            const img = document.createElement("img");
-            img.src = src;
-            img.classList.add("page");
+    rotateContainer.innerHTML = `
+        <div style="text-align:center; margin-top:30px;">
+            <p>📄 PDF grande detectado (${data.total_pages} páginas)</p>
+            <p>La vista previa no está disponible para este archivo.</p>
+            <p>Puedes intentar con un PDF más pequeño.</p>
+        </div>
+    `;
 
-            const btn = document.createElement("button");
-            btn.textContent = "⟲";
-            btn.classList.add("btn");
-            btn.type = "button";
+    return;
+}
 
-            rotateData[index] = 0;
+// 🔥 2. VALIDACIÓN SEGURA
+if (!data.images || !Array.isArray(data.images)) {
+    console.error("❌ data.images no existe:", data);
+    rotateContainer.innerHTML = "<p>Error procesando el PDF</p>";
+    return;
+}
 
-            btn.onclick = () => {
-                
-                rotateData[index] = (rotateData[index] + 90) % 360;
+// 🟢 3. RENDER NORMAL (igual que antes)
+data.images.forEach((src, index) => {
 
-                img.style.transform = `rotate(${rotateData[index]}deg)`;
-            };
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
 
-            wrapper.appendChild(img);
-            wrapper.appendChild(btn);
+    const img = document.createElement("img");
+    img.src = src;
+    img.classList.add("page");
 
-            rotateContainer.appendChild(wrapper);
-        });
+    const btn = document.createElement("button");
+    btn.textContent = "⟲";
+    btn.classList.add("btn");
+    btn.type = "button";
 
+    rotateData[index] = 0;
+
+    btn.onclick = () => {
+        rotateData[index] = (rotateData[index] + 90) % 360;
+        img.style.transform = `rotate(${rotateData[index]}deg)`;
+    };
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(btn);
+
+    rotateContainer.appendChild(wrapper);
+    });
     });
 
 }
@@ -604,52 +626,86 @@ if (reorderInput) {
 
         reorderContainer.innerHTML = "<p>Cargando páginas...</p>";
 
-        const formData = new FormData();
-        formData.append("file", file);
+        try {
 
-        const res = await fetch("/preview_pages", {
-            method: "POST",
-            body: formData
-        });
+            const formData = new FormData();
+            formData.append("file", file);
 
-        const data = await res.json();
-
-        reorderContainer.innerHTML = "";
-
-        data.images.forEach(item => {
-
-            const div = document.createElement("div");
-            div.classList.add("draggable");
-            div.draggable = true;
-            div.dataset.page = item.page;
-
-            div.innerHTML = `
-                <img src="${item.src}" class="page">
-                <p>Página ${item.page}</p>
-            `;
-
-            // 🔥 drag start
-            div.addEventListener("dragstart", () => {
-                dragged = div;
+            const res = await fetch("/preview_pages", {
+                method: "POST",
+                body: formData
             });
 
-            // 🔥 drag over
-            div.addEventListener("dragover", (e) => {
-                e.preventDefault();
+            const data = await res.json();
+
+            reorderContainer.innerHTML = "";
+
+            console.log("DATA BACKEND:", data);
+
+            // 🔥 1. PDF GRANDE (igual que split)
+            if (data.mode === "simple") {
+
+                reorderContainer.innerHTML = `
+                    <div style="text-align:center; margin-top:30px;">
+                        <p>📄 PDF grande detectado (${data.total_pages} páginas)</p>
+                        <p>La vista previa no está disponible para este archivo.</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            // 🔥 2. VALIDACIÓN
+            if (!data.images || !Array.isArray(data.images)) {
+                console.error("❌ data.images no existe:", data);
+                reorderContainer.innerHTML = "<p>Error procesando el PDF</p>";
+                return;
+            }
+
+            // 🟢 3. RENDER FLEXIBLE (OBJETO O STRING)
+            data.images.forEach((item, index) => {
+
+                const page = item.page || (index + 1);
+                const src = item.src || item;
+
+                const div = document.createElement("div");
+                div.classList.add("draggable");
+                div.draggable = true;
+                div.dataset.page = page;
+
+                div.innerHTML = `
+                    <img src="${src}" class="page">
+                    <p>Página ${page}</p>
+                `;
+
+                // 🔥 DRAG START
+                div.addEventListener("dragstart", () => {
+                    dragged = div;
+                });
+
+                // 🔥 DRAG OVER
+                div.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                });
+
+                // 🔥 DROP
+                div.addEventListener("drop", () => {
+                    if (dragged !== div) {
+                        reorderContainer.insertBefore(dragged, div);
+                        updateOrder();
+                    }
+                });
+
+                reorderContainer.appendChild(div);
             });
 
-            // 🔥 drop
-            div.addEventListener("drop", () => {
-                if (dragged !== div) {
-                    reorderContainer.insertBefore(dragged, div);
-                    updateOrder();
-                }
-            });
+            updateOrder();
 
-            reorderContainer.appendChild(div);
-        });
+        } catch (err) {
+            console.error(err);
+            reorderContainer.innerHTML = "<p>Error de conexión</p>";
+        }
 
-        updateOrder();
     });
 }
 
