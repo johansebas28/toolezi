@@ -340,7 +340,7 @@ forms.forEach(form => {
 
         // 🔥 FORZAR RENDER
         requestAnimationFrame(() => {
-
+            loadingText.textContent = "Preparando archivo...";
             simulateProgress();
 
             const formData = new FormData(form);
@@ -356,11 +356,18 @@ forms.forEach(form => {
             .then(res => res.text())
             .then(html => {
 
-                setTimeout(() => {
-                    document.open();
-                    document.write(html);
-                    document.close();
-                }, 1200);
+                // detener animación
+            clearInterval(window.currentProgressInterval);
+
+            // completar barra
+            progress.style.width = "100%";
+            loadingText.textContent = "Finalizando...";
+
+            setTimeout(() => {
+                document.open();
+                document.write(html);
+                document.close();
+            }, 600);
 
             })
             .catch(err => {
@@ -392,25 +399,38 @@ function simulateProgress() {
     const loadingText = document.getElementById("loadingText");
 
     let percent = 0;
-    let step = 0;
+
+    const phases = [
+        { text: "Subiendo archivo...", target: 25, speed: 6 },
+        { text: "Procesando documento...", target: 65, speed: 4 },
+        { text: "Optimizando resultado...", target: 90, speed: 2 }
+    ];
+
+    let phaseIndex = 0;
 
     const interval = setInterval(() => {
 
-        percent += Math.random() * 15;
+        const phase = phases[phaseIndex];
 
-        if (percent >= 95) {
-            percent = 95;
-            clearInterval(interval);
+        loadingText.textContent = phase.text;
+
+        percent += Math.random() * phase.speed;
+
+        if (percent >= phase.target) {
+            percent = phase.target;
+            phaseIndex++;
+
+            if (phaseIndex >= phases.length) {
+                clearInterval(interval);
+            }
         }
 
         progress.style.width = percent + "%";
 
-        if (step < messages.length) {
-            loadingText.textContent = messages[step];
-            step++;
-        }
-
     }, 400);
+
+    // 🔥 guardamos el interval para controlarlo después
+    window.currentProgressInterval = interval;
 }
 
 

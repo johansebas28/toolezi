@@ -663,10 +663,28 @@ FEEDBACK, DONATIONS
 }
 
 #progressFill {
-    background: linear-gradient(90deg, #007bff, #00c6ff);
+
     height: 100%;
-    transition: width 0.3s;
+    
     width: 0%;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    transition: width 0.4s ease;
+    border-radius: 5px;
+}
+
+.modal-content {
+    animation: scaleIn 0.25s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 #reorder-container {
