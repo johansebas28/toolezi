@@ -687,6 +687,53 @@ FEEDBACK, DONATIONS
     }
 }
 
+.result-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px);
+    padding: 40px 20px;
+}
+
+.result-mode {
+    position: fixed;
+    inset: 0;
+
+    background: #f4f6f8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+    background: radial-gradient(circle at top, #f8fafc, #eef2f7);
+}
+
+body.result-active {
+    overflow: hidden;
+}
+
+body.result-active .footer,
+body.result-active .header,
+body.result-active .hero,
+body.result-active .category {
+    display: none;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    width: 420px;
+    max-width: 90%;
+
+    animation: fadeIn 0.4s ease;
+}
+
 #reorder-container {
     display: flex;
     flex-wrap: wrap;

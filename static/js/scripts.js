@@ -336,7 +336,6 @@ forms.forEach(form => {
 
         const action = form.getAttribute("action"); // 🔥 ESTA LÍNEA FALTABA
 
-        loadingText.textContent = toolMessages[action] || "Procesando archivo...";
 
         // 🔥 FORZAR RENDER
         requestAnimationFrame(() => {
@@ -355,19 +354,39 @@ forms.forEach(form => {
             })
             .then(res => res.text())
             .then(html => {
+                const modal = document.getElementById("processingModal");
+                const progress = document.getElementById("progressFill");
+                const loadingText = document.getElementById("loadingText");
+                // 🔥 detener animación
+                clearInterval(window.currentProgressInterval);
 
-                // detener animación
-            clearInterval(window.currentProgressInterval);
+                progress.style.width = "100%";
+                loadingText.textContent = "Finalizando...";
 
-            // completar barra
-            progress.style.width = "100%";
-            loadingText.textContent = "Finalizando...";
+                setTimeout(() => {
 
-            setTimeout(() => {
-                document.open();
-                document.write(html);
-                document.close();
-            }, 600);
+                    // 🔥 ocultar modal
+                    modal.classList.remove("active", "hidden");
+                    modal.offsetHeight; // 🔥 forzar repaint
+                    modal.classList.add("hidden");
+
+                    // 🔥 parsear HTML recibido
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+
+                    // 🔥 extraer SOLO appContent
+                    const newContent = doc.body;
+
+                    if (newContent) {
+                        document.getElementById("appContent").innerHTML = newContent.innerHTML;
+                        document.body.classList.add("result-active");
+                    } else {
+                        console.error("❌ No se encontró #appContent en la respuesta");
+                        location.reload(); // 🔥 fallback inmediato si falla
+                        return;
+                    }
+
+                }, 600);
 
             })
             .catch(err => {
@@ -847,10 +866,41 @@ function submitPassword() {
     })
     .then(res => res.text())
     .then(html => {
-        document.open();
-        document.write(html);
-        document.close();
-    })
+        const modal = document.getElementById("processingModal");
+        const progress = document.getElementById("progressFill");
+        const loadingText = document.getElementById("loadingText");
+    // 🔥 detener animación
+    clearInterval(window.currentProgressInterval);
+
+    progress.style.width = "100%";
+    loadingText.textContent = "Finalizando...";
+
+    setTimeout(() => {
+
+        // 🔥 ocultar modal
+        modal.classList.remove("active", "hidden");
+        modal.offsetHeight; // 🔥 forzar repaint
+        modal.classList.add("hidden");
+
+        // 🔥 parsear HTML recibido
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // 🔥 extraer SOLO appContent
+        const newContent = doc.body;
+
+        if (newContent) {
+            document.getElementById("appContent").innerHTML = newContent.innerHTML;
+            document.body.classList.add("result-active");
+        } else {
+            console.error("❌ No se encontró #appContent en la respuesta");
+            location.reload(); // 🔥 fallback inmediato si falla
+            return;
+        }
+
+    }, 600);
+
+})
     .catch(err => {
         alert("Error al desbloquear PDF");
         console.error(err);
@@ -868,7 +918,8 @@ function closeFeedback() {
 function closePasswordModal() {
     const modal = document.getElementById("passwordModal");
 
-    modal.classList.remove("active");
+    modal.classList.remove("active", "hidden");
+    modal.offsetHeight; // 🔥 forzar repaint
     modal.classList.add("hidden");
 
     // 🔥 limpia estado del navegador
@@ -903,15 +954,46 @@ function saveSignature() {
     formData.append("sig_name", sigName);
 
     fetch("/apply_signature_manual", {
-        method: "POST",
+        method: "POST", 
         body: formData
     })
     .then(res => res.text())
     .then(html => {
-        document.open();
-        document.write(html);
-        document.close();
-    });
+        const modal = document.getElementById("processingModal");
+        const progress = document.getElementById("progressFill");
+        const loadingText = document.getElementById("loadingText");
+    // 🔥 detener animación
+    clearInterval(window.currentProgressInterval);
+
+    progress.style.width = "100%";
+    loadingText.textContent = "Finalizando...";
+
+    setTimeout(() => {
+
+        // 🔥 ocultar modal
+        modal.classList.remove("active", "hidden");
+        modal.offsetHeight; // 🔥 forzar repaint
+        modal.classList.add("hidden");
+
+        // 🔥 parsear HTML recibido
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // 🔥 extraer SOLO appContent
+        const newContent = doc.body;
+
+        if (newContent) {
+            document.getElementById("appContent").innerHTML = newContent.innerHTML;
+            document.body.classList.add("result-active");
+        } else {
+            console.error("❌ No se encontró #appContent en la respuesta");
+            location.reload(); // 🔥 fallback inmediato si falla
+            return;
+        }
+
+    }, 600);
+
+})
 }
 
 function openDonateModal() {
