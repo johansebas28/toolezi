@@ -2,6 +2,14 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/favicon.ico') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="{{ url_for('static', filename='img/logo.png') }}"
+    />
     <title>Herramientas PDF</title>
 
     <link
@@ -15,46 +23,68 @@
     <div id="google_translate_element"></div>
 
     <!-- 💬 Botones arriba -->
-    <div class="top-actions">
-      <button class="action-btn" onclick="openFeedback()">💬 Feedback</button>
+    <div class="floating-actions">
+      <button class="action-btn" onclick="openFeedback()">💬 Comentario</button>
+      <div id="google_translate_element"></div>
     </div>
     <div id="appContent">
       <!-- HEADER -->
       <div class="header">
         <div class="nav">
           <div class="logo-text">
-            <span class="brand-name">TOOLEZI</span>
+            <a
+              href="/"
+              onclick="
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return false;
+              "
+              class="brand-name"
+            >
+              TOOLEZI
+            </a>
           </div>
 
-          <div class="nav-actions">
-            <!--<button class="nav-btn">Iniciar sesión</button>-->
-            <!--<button class="nav-btn primary">Probar PRO</button>-->
+          <div class="nav-menu">
+            <a href="#organizar">Organizar</a>
+            <a href="#convertir">Convertir</a>
+            <a href="#optimizar">Optimizar</a>
+            <a href="#seguridad">Seguridad</a>
           </div>
         </div>
       </div>
 
-      <div class="hero">
+      <section class="hero">
         <img
-          src="{{ url_for('static', filename='img/icons/logo.png') }}"
+          src="{{ url_for('static', filename='img/logo.png') }}"
           class="hero-logo"
         />
 
-        <h1>Todo lo que necesitas para tus PDFs</h1>
-        <p>Rapido, gratuito y sin complicaciones</p>
+        <h1>Herramientas PDF gratis online</h1>
 
-        <!--<button class="btn">Start now</button>-->
-      </div>
+        <p class="hero-subtitle">
+          Une, divide, convierte y optimiza archivos PDF fácilmente desde tu
+          navegador. Sin registro, rápido y seguro.
+        </p>
+
+        <div class="hero-features">
+          <span>⚡ Rápido</span>
+          <span>🔒 Seguro</span>
+          <span>💻 Sin instalación</span>
+          <span>🆓 Gratis</span>
+        </div>
+      </section>
 
       <!-- =========================
       ORGANIZAR PDF
   ========================= -->
-      <div class="category">
-        <img
-          src="{{ url_for('static', filename='img/icons/categoriaOrganizar.png') }}"
-          class="tool-icon"
-        />
-        <h2>Organizar PDF</h2>
-
+      <div class="category organizar" id="organizar">
+        <div class="category-header">
+          <img
+            src="{{ url_for('static', filename='img/icons/categoriaOrganizar.png') }}"
+            class="tool-icon"
+          />
+          <h2>Organizar PDF</h2>
+        </div>
         <div class="tools-grid">
           <div class="tool organizar" onclick="showTool('merge')">
             <img
@@ -116,13 +146,14 @@
       <!-- =========================
       CONVERTIR PDF
   ========================= -->
-      <div class="category">
-        <img
-          src="{{ url_for('static', filename='img/icons/categoriaConvertir.png') }}"
-          class="tool-icon"
-        />
-        <h2>Convertir PDF</h2>
-
+      <div class="category convertir" id="convertir">
+        <div class="category-header">
+          <img
+            src="{{ url_for('static', filename='img/icons/categoriaConvertir.png') }}"
+            class="tool-icon"
+          />
+          <h2>Convertir PDF</h2>
+        </div>
         <div class="tools-grid">
           <div class="tool convertir" onclick="showTool('pdf2img')">
             <img
@@ -201,12 +232,14 @@
       <!-- =========================
       OPTIMIZAR
   ========================= -->
-      <div class="category">
-        <img
-          src="{{ url_for('static', filename='img/icons/categoriaOptimizar.png') }}"
-          class="tool-icon"
-        />
-        <h2>Optimizar</h2>
+      <div class="category optimizar" id="optimizar">
+        <div class="category-header">
+          <img
+            src="{{ url_for('static', filename='img/icons/categoriaOptimizar.png') }}"
+            class="tool-icon"
+          />
+          <h2>Optimizar</h2>
+        </div>
         <div class="tools-grid">
           <div class="tool optimizar" onclick="showTool('compress')">
             <img
@@ -231,13 +264,14 @@
       <!-- =========================
       SEGURIDAD
   ========================= -->
-      <div class="category">
-        <img
-          src="{{ url_for('static', filename='img/icons/categoriaSeguridad.png') }}"
-          class="tool-icon"
-        />
-        <h2>Seguridad</h2>
-
+      <div class="category seguridad" id="seguridad">
+        <div class="category-header">
+          <img
+            src="{{ url_for('static', filename='img/icons/categoriaSeguridad.png') }}"
+            class="tool-icon"
+          />
+          <h2>Seguridad</h2>
+        </div>
         <div class="tools-grid">
           <div class="tool seguridad" onclick="showTool('unlock')">
             <img
@@ -1031,11 +1065,13 @@
       </div>
     </div>
     <!-- FIN appContent -->
-    <div id="loader" class="loader hidden"><!-- Loader -->
+    <div id="loader" class="loader hidden">
+      <!-- Loader -->
       <div class="spinner"></div>
       <p>Procesando archivo...</p>
     </div>
-    <div id="processingModal" class="modal hidden"><!-- modales -->
+    <div id="processingModal" class="modal hidden">
+      <!-- modales -->
       <div class="modal-content">
         <div class="loader-icon">⚙️</div>
 
@@ -1049,29 +1085,41 @@
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <div class="footer">
-      <div class="footer-content">
+      <div class="footer-container">
+        <!-- IZQUIERDA -->
         <div class="footer-brand">
-          <h3>Toolezi</h3>
-          <p>Herramientas PDF gratuitas, rápidas y fáciles de usar.</p>
-        </div>
-
-        <div class="footer-donate">
-          <button class="donate-btn" onclick="openDonateModal()">
-            ☕ Apoya este proyecto
-          </button>
-          <p style="font-size: 13px; color: #777">
-            💡 Herramienta gratuita — tu apoyo ayuda a mantenerla en
-            funcionamiento
+          <h3>TOOLEZI</h3>
+          <p>
+            Herramientas PDF gratuitas, rápidas y seguras. Sin registro y sin
+            complicaciones.
           </p>
         </div>
 
+        <!-- CENTRO -->
         <div class="footer-links">
-          <a href="#">Privacidad</a>
-          <a href="#">Términos</a>
-          <a href="#">Contacto</a>
+          <h4>Enlaces</h4>
+          <a href="/privacidad">Privacidad</a>
+          <a href="/terminos">Términos</a>
+          <a href="/contacto">Contacto</a>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="footer-cta">
+          <button class="donate-btn" onclick="openDonateModal()">
+            ☕ Apoyar proyecto
+          </button>
+          <p class="footer-note">
+            💡 Mantener esta herramienta cuesta tiempo y recursos
+          </p>
         </div>
       </div>
-      <div>Tus archivos se eliminan automáticamente después de procesarse.</div>
+
+      <!-- MENSAJE SEGURIDAD -->
+      <div class="footer-security">
+        🔒 Tus archivos se eliminan automáticamente después de procesarse
+      </div>
+
+      <!-- COPYRIGHT -->
       <div class="footer-bottom">© 2026 Toolezi — Hecho con 💙</div>
     </div>
     <div id="donateModal" class="modal">

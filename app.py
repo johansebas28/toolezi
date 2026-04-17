@@ -96,5 +96,18 @@ def get_image(filename):
     return "Imagen no encontrada", 404
 
 
+@app.route("/privacidad")
+def privacidad():
+    return render_template("privacidad.html")
+
+@app.route("/terminos")
+def terminos():
+    return render_template("terminos.html")
+
+@app.route("/contacto")
+def contacto():
+    return render_template("contacto.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
+    
