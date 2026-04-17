@@ -312,10 +312,11 @@ const forms = document.querySelectorAll("form");
 
 forms.forEach(form => {
 
-    if (form.action.includes("unlock_pdf")) return; // 🔥 ESTA ES LA CLAVE
+    if (form.action.includes("unlock_pdf")) return;
 
     form.addEventListener("submit", function(e) {
 
+        console.log("🔥 SUBMIT DETECTADO");
 
         e.preventDefault();
 
@@ -323,58 +324,50 @@ forms.forEach(form => {
         const progress = document.getElementById("progressFill");
         const loadingText = document.getElementById("loadingText");
 
+        if (!modal) {
+            console.error("❌ Modal no existe en el DOM");
+            return;
+        }
 
         modal.classList.remove("hidden");
+        modal.classList.add("active");
 
+        progress.style.width = "0%";
 
-        const action = form.getAttribute("action");
-
+        const action = form.getAttribute("action"); // 🔥 ESTA LÍNEA FALTABA
 
         loadingText.textContent = toolMessages[action] || "Procesando archivo...";
 
+        // 🔥 FORZAR RENDER
+        requestAnimationFrame(() => {
 
+            simulateProgress();
 
-        const formData = new FormData(form);
+            const formData = new FormData(form);
 
-        // 🔥 SOLO PARA ROTATE (AQUÍ ES DONDE VA)
-        if (form.id === "rotateForm") {
-            formData.append("rotations", JSON.stringify(rotateData));
-        }
-
-        fetch(form.action, {
-            method: "POST",
-            body: formData
-        })
-        .then(res => res.text())
-        .then(html => {
-
-            // 🔥 SI ES MODAL DE CONTRASEÑA
-            if (html.includes('ask_password')) {
-
-            document.open();
-            document.write(html);
-            document.close();
-
-
-            // 🔥 ESPERAR A QUE EL DOM EXISTA
-            setTimeout(() => {
-                const modal = document.getElementById("passwordModal");
-                if (modal) {
-                    modal.classList.add("active");
-                }
-            }, 50);
-
-            return;
+            if (form.id === "rotateForm") {
+                formData.append("rotations", JSON.stringify(rotateData));
             }
-            // 🔥 RESULTADO NORMAL
-            document.open();
-            document.write(html);
-            document.close();
 
-        })
-        .catch(err => {
-            console.error("Error:", err);
-            alert("Hubo un error");
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.text())
+            .then(html => {
+
+                setTimeout(() => {
+                    document.open();
+                    document.write(html);
+                    document.close();
+                }, 1200);
+
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                alert("Hubo un error");
+            });
+
         });
 
     });
@@ -382,10 +375,10 @@ forms.forEach(form => {
 });
 
 
-const modal = document.getElementById("processingModal");
+/*const modal = document.getElementById("processingModal");
 const progress = document.getElementById("progressFill");
 const loadingText = document.getElementById("loadingText");
-
+*/
 const messages = [
     "Subiendo archivo...",
     "Procesando...",
@@ -394,6 +387,10 @@ const messages = [
 ];
 
 function simulateProgress() {
+
+    const progress = document.getElementById("progressFill");
+    const loadingText = document.getElementById("loadingText");
+
     let percent = 0;
     let step = 0;
 
@@ -402,7 +399,7 @@ function simulateProgress() {
         percent += Math.random() * 15;
 
         if (percent >= 95) {
-            percent = 95; // se detiene antes del final
+            percent = 95;
             clearInterval(interval);
         }
 
@@ -909,3 +906,4 @@ function copyNequi() {
     navigator.clipboard.writeText("3188198651");
     document.getElementById("copyMsg").innerText = "Copied ✔";
 }
+
