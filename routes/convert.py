@@ -4,6 +4,7 @@ from pdf2docx import Converter
 from PIL import Image
 from pypdf import PdfReader
 from werkzeug.utils import secure_filename
+import fitz  # (PyMuPDF)
 
 import os, zipfile, uuid, subprocess
 
@@ -82,7 +83,7 @@ def img_to_pdf():
 
     return render_template("result.html", filename=filename)
 
-# PDF TO WORD
+# PDF TO WORD (MEJORADO)
 @convert_bp.route("/pdf_to_word", methods=["POST"])
 def pdf_to_word():
     file = request.files.get("pdf")
@@ -103,9 +104,45 @@ def pdf_to_word():
     filename = f"{uuid.uuid4()}.docx"
     output_path = os.path.join(OUTPUT_FOLDER, filename)
 
-    cv = Converter(input_path)
-    cv.convert(output_path)
-    cv.close()
+    # =========================
+    # 🔍 ANALIZAR PDF (NUEVO)
+    # =========================
+    doc = fitz.open(input_path)
+
+    has_text = False
+    has_images = False
+
+    for page in doc:
+        if page.get_text().strip():
+            has_text = True
+        if page.get_images():
+            has_images = True
+
+    doc.close()
+
+    # =========================
+    # 🔀 DECISIÓN INTELIGENTE
+    # =========================
+
+    # PDF ESCANEADO (SIN TEXTO)
+    if not has_text:
+        os.remove(input_path)
+        return render_template(
+            "result.html",
+            error="Este PDF parece escaneado. Usa la herramienta OCR PDF."
+        )
+
+    # PDF COMPLEJO (IMÁGENES / DISEÑO)
+    if has_images:
+        cv = Converter(input_path)
+        cv.convert(output_path, start=0, end=None)  # 👈 modo completo
+        cv.close()
+
+    # PDF SIMPLE (como ya lo tenías)
+    else:
+        cv = Converter(input_path)
+        cv.convert(output_path)
+        cv.close()
 
     os.remove(input_path)
 
