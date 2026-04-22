@@ -5,6 +5,113 @@ from PIL import Image
 from pypdf import PdfReader
 from werkzeug.utils import secure_filename
 import fitz  # (PyMuPDF)
+from docx import Document
+
+def normalize_vertical_table(rows):
+    """
+    Convierte columnas verticales en filas horizontales
+    """
+    new_rows = []
+    temp = []
+
+    for r in rows:
+        if len(r) == 1:
+            temp.append(r[0])
+
+            # cada 3 elementos → crear fila
+            if len(temp) == 3:
+                new_rows.append(temp)
+                temp = []
+        else:
+            if temp:
+                new_rows.append(temp)
+                temp = []
+            new_rows.append(r)
+
+    if temp:
+        new_rows.append(temp)
+
+    return new_rows
+
+
+def extract_tables_to_docx(input_pdf, output_docx):
+    import fitz
+    from docx import Document
+
+    doc = fitz.open(input_pdf)
+    word = Document()
+
+    for page_num, page in enumerate(doc):
+        blocks = page.get_text("blocks")
+
+        blocks = sorted(blocks, key=lambda b: b[1])
+
+        table_data = []
+
+        for b in blocks:
+            text = b[4].strip()
+
+            if len(text.split()) > 3:
+                row = [cell.strip() for cell in text.split()]
+                table_data.append(row)
+
+            else:
+                if table_data:
+                    # 🔥 AQUÍ SE APLICA LA MAGIA
+                    table_data = normalize_vertical_table(table_data)
+
+                    rows = len(table_data)
+                    cols = max(len(r) for r in table_data)
+
+                    table = word.add_table(rows=rows, cols=cols)
+                    style_table_full_width(table)
+
+                    for i, row in enumerate(table_data):
+                        for j, val in enumerate(row):
+                            table.cell(i, j).text = val
+
+                    table_data = []
+
+                word.add_paragraph(text)
+
+        if table_data:
+            # 🔥 TAMBIÉN AQUÍ (IMPORTANTE)
+            table_data = normalize_vertical_table(table_data)
+
+            rows = len(table_data)
+            cols = max(len(r) for r in table_data)
+
+            table = word.add_table(rows=rows, cols=cols)
+
+            for i, row in enumerate(table_data):
+                for j, val in enumerate(row):
+                    table.cell(i, j).text = val
+
+    word.save(output_docx)
+    doc.close()
+    
+def style_table_full_width(table):
+    from docx.shared import Inches
+    from docx.enum.table import WD_TABLE_ALIGNMENT
+
+    # 🔹 centrar tabla
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+
+    # 🔹 desactivar autoajuste raro
+    table.autofit = False
+
+    # 🔹 ancho total aproximado (A4 / carta)
+    total_width = Inches(6.5)
+
+    cols = len(table.columns)
+    col_width = total_width / cols
+
+    for row in table.rows:
+        for cell in row.cells:
+            cell.width = col_width
+
+            for paragraph in cell.paragraphs:
+                paragraph.alignment = 1
 
 import os, zipfile, uuid, subprocess
 
@@ -134,9 +241,14 @@ def pdf_to_word():
 
     # PDF COMPLEJO (IMÁGENES / DISEÑO)
     if has_images:
-        cv = Converter(input_path)
-        cv.convert(output_path, start=0, end=None)  # 👈 modo completo
-        cv.close()
+        try:
+            extract_tables_to_docx(input_path, output_path)
+        except Exception as e:
+            print("Fallback a pdf2docx:", e)
+
+            cv = Converter(input_path)
+            cv.convert(output_path, start=0, end=None)
+            cv.close()
 
     # PDF SIMPLE (como ya lo tenías)
     else:
