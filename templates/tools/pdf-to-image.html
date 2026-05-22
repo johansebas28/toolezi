@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Convert PDF to Image Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Convert PDF files to PNG images online for free with TOOLEZI. Extract PDF pages as high-quality images quickly."
+        />
+
+        <meta
+        name="keywords"
+        content="pdf to image, convert pdf to png, pdf to image online, extract pdf images"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Convert PDF to Image</h1>
+
+            <p class="hero-subtitle">
+            Convert PDF pages into PNG images quickly, securely, and for free.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="pdf2img" class="container active">
+
+            <form
+            action="/pdf_to_img"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Convert
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to convert PDF to image?</h2>
+
+            <p>
+            TOOLEZI allows you to convert PDF files into PNG images online
+            without installing software. Each PDF page is transformed into
+            a high-quality image.
+            </p>
+
+            <p>
+            Perfect for sharing pages as images, presentations,
+            scanned documents, or visual content easily.
+            </p>
+
+            <h2>How to convert PDF to image</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Click the “Convert” button</li>
+            <li>Wait a few seconds</li>
+            <li>Download the images in ZIP format</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Fast PDF to PNG conversion</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>No installation required</li>
+            <li>Secure file processing</li>
+            <li>High-quality images</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI PDF to Image free?</h3>
+
+            <p>
+            Yes. You can convert PDFs to images completely free.
+            </p>
+
+            <h3>Does each page become an image?</h3>
+
+            <p>
+            Yes. Each PDF page is exported as an individual PNG image.
+            </p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>
+            Yes. Uploaded files are automatically deleted after processing.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

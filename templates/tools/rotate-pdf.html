@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Rotate PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Rotate PDF pages online for free with TOOLEZI. Rotate individual PDF pages easily without installing software."
+        />
+
+        <meta
+        name="keywords"
+        content="rotate pdf, rotate pdf pages, pdf rotation, rotate pdf online"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="nav">
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Rotate PDF Online</h1>
+
+            <p class="hero-subtitle">
+            Rotate PDF pages easily, quickly, securely, and for free.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="rotate" class="container active">
+
+            <form
+            id="rotateForm"
+            action="/rotate_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    id="rotateInput"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">🔄</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <!-- THUMBNAILS -->
+            <div id="rotate-pages-container"></div>
+
+            <button class="btn center-btn">
+                Apply Rotation
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to rotate PDFs?</h2>
+
+            <p>
+            TOOLEZI lets you rotate PDF pages online without installing software.
+            Rotate individual pages easily from any device.
+            </p>
+
+            <p>
+            Perfect for fixing upside-down scanned documents, tilted pages,
+            or incorrectly oriented PDF files.
+            </p>
+
+            <h2>How to rotate PDF pages</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Preview the page thumbnails</li>
+            <li>Click to rotate the necessary pages</li>
+            <li>Download the corrected PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Free PDF rotation tool</li>
+            <li>No installation required</li>
+            <li>Fast and secure processing</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Individual page rotation</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Rotate PDF free?</h3>
+
+            <p>
+            Yes. You can rotate PDF pages completely free.
+            </p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>
+            Yes. Uploaded files are automatically deleted after processing.
+            </p>
+
+            <h3>Can I rotate PDFs from my phone?</h3>
+
+            <p>
+            Yes. TOOLEZI works on phones, tablets, and computers.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Add Page Numbers to PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Add page numbers to PDF files online for free with TOOLEZI. Automatically number PDF pages easily."
+        />
+
+        <meta
+        name="keywords"
+        content="number pdf pages, add page numbers pdf, pdf numbering, pdf page numbers online"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+    <div class="nav">
+
+        <div class="logo">
+            <a href="/" class="brand-name">TOOLEZI</a>
+        </div>
+
+    </div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>Add Page Numbers to PDF Online</h1>
+
+    <p class="hero-subtitle">
+        Add page numbers to your PDF files quickly, securely, and for free.
+    </p>
+
+</section>
+
+        <!-- TOOL -->
+        <div id="number" class="container active">
+
+            <form
+            action="/number_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">
+                        Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                        Upload your file to add page numbers
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Add Page Numbers
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to add page numbers to PDFs?</h2>
+
+            <p>
+            TOOLEZI allows you to add page numbers to PDF files online
+            without installing software. Perfect for academic documents,
+            reports, contracts, or business files.
+            </p>
+
+            <p>
+            Automatic page numbering helps organize your documents better
+            and makes reading or printing easier.
+            </p>
+
+            <h2>How to add page numbers to a PDF</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Click the “Add Page Numbers” button</li>
+            <li>Wait a few seconds</li>
+            <li>Download your numbered PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Free PDF tool</li>
+            <li>No installation required</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Fast and secure processing</li>
+            <li>Automatic page numbering</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Add Page Numbers free?</h3>
+
+            <p>
+            Yes. You can add page numbers to PDFs completely free.
+            </p>
+
+            <h3>Is the numbering added automatically?</h3>
+
+            <p>
+            Yes. TOOLEZI automatically detects all pages in the document.
+            </p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>
+            Yes. Uploaded files are automatically deleted after processing.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+            <div class="modal-content">
+
+                <div class="loader-icon">⚙️</div>
+
+                <h2>Processing File</h2>
+
+                <p id="loadingText">
+                    Preparing...
+                </p>
+
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

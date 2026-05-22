@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Word to PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Convert Word DOCX files to PDF online for free with TOOLEZI. Fast, secure, and no software installation required."
+        />
+
+        <meta
+        name="keywords"
+        content="word to pdf, docx to pdf, convert word to pdf online"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Convert Word to PDF</h1>
+
+            <p class="hero-subtitle">
+            Convert Word DOCX documents to PDF quickly while preserving the original formatting.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="word2pdf" class="container active">
+
+            <form
+            action="/word_to_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="file"
+                    accept=".docx"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">
+                    Select Word File
+                    </p>
+
+                    <p class="upload-sub">
+                    (.docx)
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Convert
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to convert Word to PDF?</h2>
+
+            <p>
+            TOOLEZI converts Word DOCX documents into PDF files
+            quickly, securely, and for free.
+            </p>
+
+            <p>
+            Preserve the original formatting of your documents and generate PDFs
+            compatible with any device.
+            </p>
+
+            <h2>How to convert Word to PDF</h2>
+
+            <ol>
+            <li>Upload your Word file (.docx)</li>
+            <li>Click the “Convert” button</li>
+            <li>Wait for the processing</li>
+            <li>Download the PDF file</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Fast DOCX to PDF conversion</li>
+            <li>Preserves the original layout</li>
+            <li>No installation required</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Secure processing</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Word to PDF free?</h3>
+
+            <p>
+            Yes. You can convert Word documents to PDF for free.
+            </p>
+
+            <h3>Does it preserve the original formatting?</h3>
+
+            <p>
+            Yes. The system preserves the document’s layout, text, and images.
+            </p>
+
+            <h3>Can I convert DOCX files?</h3>
+
+            <p>
+            Yes. The tool supports Word files in .docx format.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Merge PDF Online Free | TOOLEZI</title>
+
+    <meta
+      name="description"
+      content="Merge PDF files online for free with TOOLEZI. Combine multiple PDFs quickly, securely, and without installing software."
+    />
+
+    <meta
+      name="keywords"
+      content="merge pdf, combine pdf, join pdf online, free pdf merger"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+
+  <body>
+    <div id="appContent">
+      <!-- HEADER -->
+      <header class="header">
+        <div class="nav">
+          <div class="logo">
+            <a href="/" class="brand-name">TOOLEZI</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <h1>Merge PDF Online</h1>
+
+        <p class="hero-subtitle">
+          Combine multiple PDF files into a single document quickly, securely,
+          and for free.
+        </p>
+      </section>
+
+      <!-- TOOL -->
+      <div class="tool-wrapper">
+        <form action="/merge" method="POST" enctype="multipart/form-data">
+          <div class="upload-card">
+            <label class="drop-area" id="drop-area">
+              <input
+                type="file"
+                name="pdfs"
+                id="mergeInput"
+                multiple
+                required
+                hidden
+                accept=".pdf"
+              />
+
+              <div class="upload-content" id="upload-content">
+                <div class="upload-icon">📄</div>
+
+                <p class="upload-title">Drag your PDFs here</p>
+
+                <p class="upload-sub">or click to select files</p>
+              </div>
+
+              <div id="file-list" class="file-list"></div>
+            </label>
+          </div>
+
+          <button type="submit" class="btn">Merge PDFs</button>
+        </form>
+      </div>
+
+      <!-- SEO CONTENT -->
+      <section class="legal-container">
+        <h2>Why use TOOLEZI to merge PDFs?</h2>
+
+        <p>
+          TOOLEZI lets you merge PDF files online without installing software.
+          Our tool is fast, secure, and works directly from your browser.
+        </p>
+
+        <p>
+          Whether you need to combine invoices, homework, reports,
+          presentations, or scanned documents, TOOLEZI makes the process simple
+          and fast.
+        </p>
+
+        <h2>How to merge PDF files</h2>
+
+        <ol>
+          <li>Upload your PDF files</li>
+          <li>Arrange them in the order you want</li>
+          <li>Click the “Merge PDFs” button</li>
+          <li>Download the merged PDF instantly</li>
+        </ol>
+
+        <h2>Benefits</h2>
+
+        <ul>
+          <li>Free PDF merging tool</li>
+          <li>No installation required</li>
+          <li>Secure file processing</li>
+          <li>Compatible with mobile and desktop</li>
+          <li>Fast PDF document merging</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is TOOLEZI PDF merger free?</h3>
+
+        <p>Yes. You can merge PDF files completely free.</p>
+
+        <h3>Are my files secure?</h3>
+
+        <p>
+          Yes. Uploaded files are automatically deleted after processing.
+        </p>
+
+        <h3>Can I merge PDFs from my phone?</h3>
+
+        <p>Yes. TOOLEZI works on phones, tablets, and computers.</p>
+      </section>
+    </div>
+
+    <!-- PROCESSING MODAL -->
+    <div id="processingModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="loader-icon">⚙️</div>
+
+        <h2>Processing file</h2>
+
+        <p id="loadingText">Preparing...</p>
+
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  </body>
+</html>

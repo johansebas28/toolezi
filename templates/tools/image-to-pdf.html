@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Image to PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Convert JPG and PNG images to PDF online for free with TOOLEZI. Combine multiple images into a single PDF file easily."
+        />
+
+        <meta
+        name="keywords"
+        content="image to pdf, jpg to pdf, png to pdf, convert images to pdf"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Convert Image to PDF</h1>
+
+            <p class="hero-subtitle">
+            Convert JPG and PNG images into PDF files quickly, securely, and for free.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="img2pdf" class="container active">
+
+            <form
+            action="/img_to_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="images"
+                    class="file-input"
+                    multiple
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">🖼</div>
+
+                    <p class="upload-title">
+                    Select images
+                    </p>
+
+                    <p class="upload-sub">
+                    JPG or PNG
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Convert to PDF
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to convert images to PDF?</h2>
+
+            <p>
+            TOOLEZI allows you to convert JPG and PNG images into PDF documents
+            online without installing software. Combine multiple images into a single PDF
+            easily.
+            </p>
+
+            <p>
+            Perfect for creating documents, sharing photos,
+            scans, or organized files in PDF format.
+            </p>
+
+            <h2>How to convert images to PDF</h2>
+
+            <ol>
+            <li>Select one or multiple images</li>
+            <li>Click the “Convert to PDF” button</li>
+            <li>Wait a few seconds</li>
+            <li>Download your PDF file</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Compatible with JPG and PNG</li>
+            <li>Fast and secure conversion</li>
+            <li>Combine multiple images into one PDF</li>
+            <li>No installation required</li>
+            <li>Compatible with mobile and desktop</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Image to PDF free?</h3>
+
+            <p>
+            Yes. You can convert images to PDF completely free.
+            </p>
+
+            <h3>Can I upload multiple images?</h3>
+
+            <p>
+            Yes. You can select multiple images and combine them into a single PDF.
+            </p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>
+            Yes. Files are automatically deleted after processing.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

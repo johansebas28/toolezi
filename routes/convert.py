@@ -7,6 +7,49 @@ from werkzeug.utils import secure_filename
 import fitz  # (PyMuPDF)
 from docx import Document
 
+
+def extract_table_by_coordinates(page):
+    """
+    Reconstruye tablas usando coordenadas reales (nivel PRO)
+    """
+
+    words = page.get_text("words")  # (x0, y0, x1, y1, text, ...)
+
+    # 🔹 ordenar por Y (filas) y luego X
+    words = sorted(words, key=lambda w: (round(w[1], 1), w[0]))
+
+    rows = []
+    current_row = []
+    last_y = None
+    tolerance = 5  # margen para agrupar en misma fila
+
+    for w in words:
+        x0, y0, x1, y1, text = w[:5]
+
+        if last_y is None:
+            current_row.append((x0, text))
+            last_y = y0
+            continue
+
+        # misma fila
+        if abs(y0 - last_y) < tolerance:
+            current_row.append((x0, text))
+        else:
+            rows.append(current_row)
+            current_row = [(x0, text)]
+            last_y = y0
+
+    if current_row:
+        rows.append(current_row)
+
+    # 🔹 ordenar cada fila por X (columnas)
+    clean_rows = []
+    for row in rows:
+        row = sorted(row, key=lambda r: r[0])
+        clean_rows.append([text for _, text in row])
+
+    return clean_rows
+
 def normalize_vertical_table(rows):
     """
     Convierte columnas verticales en filas horizontales
@@ -42,76 +85,57 @@ def extract_tables_to_docx(input_pdf, output_docx):
     word = Document()
 
     for page_num, page in enumerate(doc):
-        blocks = page.get_text("blocks")
 
-        blocks = sorted(blocks, key=lambda b: b[1])
+        # 🔥 USAR COORDENADAS (CLAVE)
+        table_rows = extract_table_by_coordinates(page)
 
-        table_data = []
+        # 🔹 limpiar filas vacías
+        table_rows = [r for r in table_rows if any(cell.strip() for cell in r)]
 
-        for b in blocks:
-            text = b[4].strip()
+        # 🔹 quedarnos solo con filas que parecen tabla
+        table_rows = [r for r in table_rows if len(r) > 1]
 
-            if len(text.split()) > 3:
-                row = [cell.strip() for cell in text.split()]
-                table_data.append(row)
-
-            else:
-                if table_data:
-                    # 🔥 AQUÍ SE APLICA LA MAGIA
-                    table_data = normalize_vertical_table(table_data)
-
-                    rows = len(table_data)
-                    cols = max(len(r) for r in table_data)
-
-                    table = word.add_table(rows=rows, cols=cols)
-                    style_table_full_width(table)
-
-                    for i, row in enumerate(table_data):
-                        for j, val in enumerate(row):
-                            table.cell(i, j).text = val
-
-                    table_data = []
-
-                word.add_paragraph(text)
-
-        if table_data:
-            # 🔥 TAMBIÉN AQUÍ (IMPORTANTE)
-            table_data = normalize_vertical_table(table_data)
-
-            rows = len(table_data)
-            cols = max(len(r) for r in table_data)
+        if table_rows:
+            rows = len(table_rows)
+            cols = max(len(r) for r in table_rows)
 
             table = word.add_table(rows=rows, cols=cols)
+            style_table_full_width(table)
 
-            for i, row in enumerate(table_data):
+            for i, row in enumerate(table_rows):
                 for j, val in enumerate(row):
-                    table.cell(i, j).text = val
+                    if j < cols:
+                        table.cell(i, j).text = val
 
     word.save(output_docx)
     doc.close()
     
 def style_table_full_width(table):
-    from docx.shared import Inches
+    
     from docx.enum.table import WD_TABLE_ALIGNMENT
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
 
     # 🔹 centrar tabla
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = True
+    
+    # 🔹 forzar ancho al 100% (clave real)
+    tbl = table._element
+    tblPr = tbl.tblPr
 
-    # 🔹 desactivar autoajuste raro
-    table.autofit = False
+    tblW = OxmlElement('w:tblW')
+    tblW.set(qn('w:type'), 'pct')
+    tblW.set(qn('w:w'), '5000')  # 100%
 
-    # 🔹 ancho total aproximado (A4 / carta)
-    total_width = Inches(6.5)
+    tblPr.append(tblW)
 
-    cols = len(table.columns)
-    col_width = total_width / cols
-
+    # 🔹 centrar contenido de celdas
     for row in table.rows:
         for cell in row.cells:
-            cell.width = col_width
-
+            
             for paragraph in cell.paragraphs:
-                paragraph.alignment = 1
+                paragraph.alignment = 1  # centro
 
 import os, zipfile, uuid, subprocess
 

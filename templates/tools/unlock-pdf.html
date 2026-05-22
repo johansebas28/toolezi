@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Unlock PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Remove passwords from PDF files online for free. Unlock protected PDFs easily from your browser."
+        />
+
+        <meta
+        name="keywords"
+        content="unlock pdf, remove pdf password, pdf password remover, protected pdf"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Unlock PDF Online</h1>
+
+            <p class="hero-subtitle">
+            Remove passwords from protected PDF files easily.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="unlock" class="container tool-page-container">
+
+            <form
+            action="/unlock_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    id="unlockInput"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">🔓</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Unlock PDF
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Remove PDF password online</h2>
+
+            <p>
+            Unlock protected PDF documents using our free online
+            tool.
+            </p>
+
+            <p>
+            Remove opening restrictions and regain access to your PDF
+            files from any device.
+            </p>
+
+            <h2>How to unlock a PDF</h2>
+
+            <ol>
+            <li>Upload the protected PDF file</li>
+            <li>Enter the password if required</li>
+            <li>Click the “Unlock PDF” button</li>
+            <li>Download the unlocked file</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Fast unlocking</li>
+            <li>Compatible with protected PDFs</li>
+            <li>Secure processing</li>
+            <li>No installation required</li>
+            <li>Works directly from your browser</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Do I need to know the password?</h3>
+
+            <p>
+            Yes. To unlock protected PDFs, you normally need to know the
+            original password.
+            </p>
+
+            <h3>Are my files private?</h3>
+
+            <p>
+            Yes. Files are processed automatically and then deleted.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">🔓</div>
+
+            <h2>Unlocking PDF</h2>
+
+            <p id="loadingText">
+            Processing document...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

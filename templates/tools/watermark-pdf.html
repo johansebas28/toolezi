@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Add Watermark to PDF Online | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Add text watermarks to your PDF files online for free. Protect documents with labels like CONFIDENTIAL, DRAFT, and more."
+        />
+
+        <meta
+        name="keywords"
+        content="pdf watermark, watermark pdf, protect pdf, pdf text watermark, confidential pdf"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Add Watermark to PDF</h1>
+
+            <p class="hero-subtitle">
+            Protect and personalize your PDFs by adding text watermarks.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="watermark" class="container tool-page-container">
+
+            <form
+            action="/watermark_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">💧</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <input
+                type="text"
+                name="text"
+                placeholder="Ex: CONFIDENTIAL"
+                required
+                class="watermark-input"
+            />
+
+            <button class="btn center-btn">
+                Apply Watermark
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Add watermark to PDF online</h2>
+
+            <p>
+            Insert text watermarks into your PDF documents using
+            our free online tool.
+            </p>
+
+            <p>
+            Perfect for protecting important documents with labels like
+            “CONFIDENTIAL”, “DRAFT”, “COPY”, or any custom text.
+            </p>
+
+            <h2>How to add a watermark</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Type the watermark text</li>
+            <li>Click the “Apply Watermark” button</li>
+            <li>Download your protected PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Visual document protection</li>
+            <li>Custom text support</li>
+            <li>Fast processing</li>
+            <li>Compatible with multiple pages</li>
+            <li>No installation required</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Will the watermark appear on all pages?</h3>
+
+            <p>
+            Yes. The text is automatically applied to all PDF pages.
+            </p>
+
+            <h3>Can I use any text?</h3>
+
+            <p>
+            Yes. You can enter any custom word or phrase.
+            </p>
+
+            <h3>Is it secure?</h3>
+
+            <p>
+            Yes. Your files are processed automatically and then deleted.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">💧</div>
+
+            <h2>Applying Watermark</h2>
+
+            <p id="loadingText">
+            Protecting document...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>PowerPoint to PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Convert PowerPoint PPT and PPTX files to PDF online for free. Fast, secure, and no software installation required."
+        />
+
+        <meta
+        name="keywords"
+        content="powerpoint to pdf, ppt to pdf, pptx to pdf, convert powerpoint to pdf"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Convert PowerPoint to PDF</h1>
+
+            <p class="hero-subtitle">
+            Convert PowerPoint PPT and PPTX presentations to PDF easily.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="ppt2pdf" class="container active">
+
+            <form
+            action="/ppt_to_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="file"
+                    class="file-input"
+                    accept=".ppt,.pptx"
+                    hidden
+                    required
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📊➡📄</div>
+
+                    <p class="upload-title">
+                    Select PowerPoint File
+                    </p>
+
+                    <p class="upload-sub">
+                    .ppt or .pptx
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Convert
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Convert PowerPoint to PDF online for free</h2>
+
+            <p>
+            Convert PowerPoint PPT and PPTX files to PDF directly from your
+            browser with TOOLEZI.
+            </p>
+
+            <p>
+            Preserve the layout, images, and slides of your presentations while
+            generating PDF files compatible with any device.
+            </p>
+
+            <h2>How to convert PowerPoint to PDF</h2>
+
+            <ol>
+            <li>Upload your PowerPoint presentation</li>
+            <li>Click the “Convert” button</li>
+            <li>Wait for the processing</li>
+            <li>Download the generated PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Supports PPT and PPTX files</li>
+            <li>Converts slides quickly</li>
+            <li>No installation required</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Secure conversion</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Can I convert PPTX files?</h3>
+
+            <p>
+            Yes. TOOLEZI supports both .ppt and .pptx files.
+            </p>
+
+            <h3>Will the slide design be preserved?</h3>
+
+            <p>
+            Yes. The PDF keeps the visual structure of the presentation.
+            </p>
+
+            <h3>Do I need to install PowerPoint?</h3>
+
+            <p>
+            No. Everything works online directly from your browser.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Converting presentation...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

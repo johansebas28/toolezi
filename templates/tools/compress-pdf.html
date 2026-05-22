@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Compress PDF Online Free | Reduce PDF Size | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Compress PDF files online for free. Reduce the size of your PDFs while maintaining good quality quickly and securely."
+        />
+
+        <meta
+        name="keywords"
+        content="compress pdf, reduce pdf size, small pdf, optimize pdf, compress pdf online"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+                <div class="logo">
+                    <a href="/" class="brand-name">TOOLEZI</a>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Compress PDF Online</h1>
+
+            <p class="hero-subtitle">
+            Reduce the size of your PDF files quickly without losing quality.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="compress" class="container tool-page-container">
+
+            <form
+            action="/compress_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    class="file-input"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <select name="quality" class="btn">
+
+                <option value="low">
+                High Compression
+                </option>
+
+                <option value="medium" selected>
+                Balanced
+                </option>
+
+                <option value="high">
+                High Quality
+                </option>
+
+            </select>
+
+            <br />
+
+            <button class="btn center-btn">
+                Compress PDF
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Compress PDF online for free</h2>
+
+            <p>
+            Reduce the size of your PDF files using our free online PDF compressor.
+            </p>
+
+            <p>
+            Optimize large PDF documents to share them more easily through
+            email, WhatsApp, or cloud storage.
+            </p>
+
+            <h2>How to compress a PDF</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Select the compression level</li>
+            <li>Click the “Compress PDF” button</li>
+            <li>Download the optimized file</li>
+            </ol>
+
+            <h2>Compression levels</h2>
+
+            <ul>
+            <li><strong>High Compression:</strong> smallest file size possible</li>
+            <li><strong>Balanced:</strong> good quality and reduction</li>
+            <li><strong>High Quality:</strong> better visual appearance</li>
+            </ul>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Fast compression</li>
+            <li>Compatible with large PDFs</li>
+            <li>Maintains good quality</li>
+            <li>Secure processing</li>
+            <li>No installation required</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Will quality be reduced?</h3>
+
+            <p>
+            It depends on the selected compression level. You can choose
+            higher quality or greater reduction.
+            </p>
+
+            <h3>Can I compress large files?</h3>
+
+            <p>
+            Yes. The tool works with large PDF documents.
+            </p>
+
+            <h3>Is it free?</h3>
+
+            <p>
+            Yes. You can compress PDFs online for free.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+            <div class="modal-content">
+
+                <div class="loader-icon">⚙️</div>
+
+                <h2>Compressing PDF</h2>
+
+                <p id="loadingText">
+                Optimizing file...
+                </p>
+
+                <div class="progress-bar">
+                <div id="progressFill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

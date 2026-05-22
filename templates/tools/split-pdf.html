@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Split PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Divide archivos PDF online gratis con TOOLEZI. Extrae páginas específicas de tus documentos PDF de forma rápida, segura y sin instalación."
+        />
+
+        <meta
+        name="keywords"
+        content="dividir pdf, split pdf, extraer páginas pdf, separar pdf online"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+        <div id="appContent">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="nav">
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <h1>Split PDF Online</h1>
+
+            <p class="hero-subtitle">
+                Extract pages from your PDF files quickly, securely, and for free.
+            </p>
+        </section>
+
+        <!-- TOOL -->
+        <div id="split" class="container active">
+            <form
+            id="splitForm"
+            action="/split"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+            <div class="upload-card">
+                <label class="drop-area">
+                <input type="file" name="pdf" id="splitInput" required hidden />
+
+                <div class="upload-content">
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">Select a PDF</p>
+
+                    <p class="upload-sub">or drag it here</p>
+                </div>
+                </label>
+            </div>
+
+            <div class="file-name"></div>
+
+            <input type="hidden" name="pages" id="pagesInput" />
+
+            <button class="btn center-btn">Split PDF</button>
+        </form>
+
+        <!-- PREVIEW -->
+        <div id="pages-container">
+            <div id="previewLoader" class="preview-loader hidden">
+                <div class="spinner"></div>
+                <p>Loading Pages...</p>
+            </div>
+        </div>
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+            <h2>Why use TOOLEZI to split PDFs?</h2>
+
+            <p>
+            TOOLEZI allows you to split PDF files online without installing
+            software. Extract specific pages from your documents quickly and
+            securely.
+            </p>
+
+            <p>
+            Perfect for separating chapters, removing unnecessary pages, or
+            creating individual PDF files easily.
+            </p>
+
+            <h2>How to split PDF files</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Select the pages you want to extract</li>
+            <li>Click the “Split PDF” button</li>
+            <li>Download the new PDF file</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Free PDF splitting tool</li>
+            <li>No installation required</li>
+            <li>Secure file processing</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Fast PDF page extraction</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Split PDF free?</h3>
+
+            <p>Yes. You can split PDF files completely free.</p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>Yes. Uploaded files are automatically deleted after processing.</p>
+
+            <h3>Can I split PDFs from my phone?</h3>
+
+            <p>Yes. TOOLEZI works on phones, tablets, and computers.</p>
+        </section>
+    </div>
+
+    <!-- MODAL -->
+    <div id="processingModal" class="modal hidden">
+        <div class="modal-content">
+        <div class="loader-icon">⚙️</div>
+
+        <h2>Procesando archivo</h2>
+
+        <p id="loadingText">Preparando...</p>
+
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    </body>
+</html>

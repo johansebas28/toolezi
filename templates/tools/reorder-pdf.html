@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Organize PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Reorder PDF pages online for free with TOOLEZI. Organize your PDF pages easily without installing software."
+        />
+
+        <meta
+        name="keywords"
+        content="organize pdf, reorder pdf, sort pdf pages, move pdf pages"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Organize PDF Online</h1>
+
+            <p class="hero-subtitle">
+            Reorder PDF pages easily, quickly, securely, and for free.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="reorder" class="container active">
+
+            <form
+            id="reorderForm"
+            action="/reorder_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    id="reorderInput"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📑</div>
+
+                    <p class="upload-title">
+                    Select a PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <!-- ORDER -->
+            <input
+                type="hidden"
+                name="order"
+                id="orderInput"
+            />
+
+            <!-- THUMBNAILS -->
+            <div id="reorder-container"></div>
+
+            <button class="btn center-btn">
+                Apply Order
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Why use TOOLEZI to organize PDFs?</h2>
+
+            <p>
+            TOOLEZI allows you to reorganize PDF pages online without installing software.
+            Change the order of your pages easily from any device.
+            </p>
+
+            <p>
+            Perfect for reorganizing scanned documents, rearranging reports,
+            or fixing incorrectly placed pages.
+            </p>
+
+            <h2>How to organize PDF pages</h2>
+
+            <ol>
+            <li>Upload your PDF file</li>
+            <li>Preview the page thumbnails</li>
+            <li>Drag pages to change the order</li>
+            <li>Download the reorganized PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Free PDF organizing tool</li>
+            <li>No installation required</li>
+            <li>Fast and secure processing</li>
+            <li>Compatible with mobile and desktop</li>
+            <li>Visual page reordering</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is TOOLEZI Organize PDF free?</h3>
+
+            <p>
+            Yes. You can reorganize PDF pages completely free.
+            </p>
+
+            <h3>Are my files secure?</h3>
+
+            <p>
+            Yes. Uploaded files are automatically deleted after processing.
+            </p>
+
+            <h3>Can I organize PDFs from my phone?</h3>
+
+            <p>
+            Yes. TOOLEZI works on phones, tablets, and computers.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

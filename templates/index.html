@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link
@@ -10,7 +10,7 @@
       rel="apple-touch-icon"
       href="{{ url_for('static', filename='img/logo.png') }}"
     />
-    <title>Herramientas PDF</title>
+    <title>PDF Tools</title>
 
     <link
       rel="stylesheet"
@@ -24,7 +24,7 @@
 
     <!-- 💬 Botones arriba -->
     <div class="floating-actions">
-      <button class="action-btn" onclick="openFeedback()">💬 Comentario</button>
+      <button class="action-btn" onclick="openFeedback()">💬 Feedback</button>
       <div id="google_translate_element"></div>
     </div>
     <div id="appContent">
@@ -45,10 +45,10 @@
           </div>
 
           <div class="nav-menu">
-            <a href="#organizar">Organizar</a>
-            <a href="#convertir">Convertir</a>
-            <a href="#optimizar">Optimizar</a>
-            <a href="#seguridad">Seguridad</a>
+            <a href="#organizar">Organize</a>
+            <a href="#convertir">Convert</a>
+            <a href="#optimizar">Optimize</a>
+            <a href="#seguridad">Security</a>
           </div>
         </div>
       </div>
@@ -59,18 +59,18 @@
           class="hero-logo"
         />
 
-        <h1>Herramientas PDF gratis online</h1>
+        <h1>Free Online PDF Tools</h1>
 
         <p class="hero-subtitle">
-          Une, divide, convierte y optimiza archivos PDF fácilmente desde tu
-          navegador. Sin registro, rápido y seguro.
+          Merge, split, convert, and optimize PDF files easily from your
+          browser. No registration required, fast and secure.
         </p>
 
         <div class="hero-features">
-          <span>⚡ Rápido</span>
-          <span>🔒 Seguro</span>
-          <span>💻 Sin instalación</span>
-          <span>🆓 Gratis</span>
+          <span>⚡ Fast</span>
+          <span>🔒 Secure</span>
+          <span>💻 No Installation</span>
+          <span>🆓 Free</span>
         </div>
       </section>
 
@@ -83,62 +83,79 @@
             src="{{ url_for('static', filename='img/icons/categoriaOrganizar.png') }}"
             class="tool-icon"
           />
-          <h2>Organizar PDF</h2>
+          <h2>Organize PDF</h2>
         </div>
         <div class="tools-grid">
-          <div class="tool organizar" onclick="showTool('merge')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/merge-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/merge.png') }}"
               class="tool-icon"
             />
-
-            <h3>Unir PDFs</h3>
-            <p>Une varios PDFs</p>
+            <h3>Merge PDFs</h3>
+            <p>Combine multiple PDFs</p>
           </div>
 
-          <div class="tool organizar" onclick="showTool('split')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/split-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/split.png') }}"
               class="tool-icon"
             />
-            <h3>Dividir PDF</h3>
-            <p>Extrae páginas de tu PDF</p>
+            <h3>Split PDF</h3>
+            <p>Extract pages from your PDF</p>
           </div>
 
-          <div class="tool organizar" onclick="showTool('rotate')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/rotate-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/rotar.png') }}"
               class="tool-icon"
             />
-            <h3>Rotar PDF</h3>
-            <p>Gira páginas de tu PDF</p>
+            <h3>Rotate PDF</h3>
+            <p>Rotate pages in your PDF</p>
           </div>
 
-          <div class="tool organizar" onclick="showTool('reorder')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/reorder-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/organizar.png') }}"
               class="tool-icon"
             />
-            <h3>Organizar PDF</h3>
-            <p>Reordena páginas</p>
+            <h3>Organize PDF</h3>
+            <p>Rearrange pages</p>
           </div>
 
-          <div class="tool organizar" onclick="showTool('addimages')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/add-images-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/agregarImage.png') }}"
               class="tool-icon"
             />
-            <h3>Añadir imágenes</h3>
-            <p>Inserta imágenes a tu PDF</p>
+            <h3>Add Images</h3>
+            <p>Insert images into your PDF</p>
           </div>
 
-          <div class="tool organizar" onclick="showTool('number')">
+          <div
+            class="tool organizar"
+            onclick="window.location.href = '/number-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/numerar.png') }}"
               class="tool-icon"
             />
-            <h3>Numerar PDF</h3>
-            <p>Enumera las página de tu PDF</p>
+            <h3>Page Numbers</h3>
+            <p>Add page numbers to your PDF</p>
           </div>
         </div>
       </div>
@@ -152,79 +169,103 @@
             src="{{ url_for('static', filename='img/icons/categoriaConvertir.png') }}"
             class="tool-icon"
           />
-          <h2>Convertir PDF</h2>
+          <h2>Convert PDF</h2>
         </div>
         <div class="tools-grid">
-          <div class="tool convertir" onclick="showTool('pdf2img')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/pdf-to-image'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/pdfImagen.png') }}"
               class="tool-icon"
             />
-            <h3>PDF a Imagen</h3>
-            <p>Convierte PDF en imágenes</p>
+            <h3>PDF to Image</h3>
+            <p>Convert PDF to image</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('img2pdf')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/image-to-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/imagenPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Imagen a PDF</h3>
-            <p>Convierte imágenes a PDF</p>
+            <h3>Image to PDF</h3>
+            <p>Convert images to PDF</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('pdf2word')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/pdf-to-word'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/PDFword.png') }}"
               class="tool-icon"
             />
-            <h3>PDF a Word</h3>
-            <p>Convierte archivos PDF a Word</p>
+            <h3>PDF to Word</h3>
+            <p>Convert PDF to Word</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('word2pdf')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/word-to-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/wordPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Word a PDF</h3>
-            <p>Convierte archivos Word a PDF</p>
+            <h3>Word to PDF</h3>
+            <p>Convert Word files to PDF</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('excel2pdf')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/excel-to-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/ExcelPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Excel a PDF</h3>
-            <p>Convierte tablas de Excel a PDF</p>
+            <h3>Excel to PDF</h3>
+            <p>Convert Excel tables to PDF</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('pdf2excel')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/pdf-to-excel'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/PDFexcel.png') }}"
               class="tool-icon"
             />
-            <h3>PDF a Excel</h3>
-            <p>Convierte archivos PDF a Excel</p>
+            <h3>PDF to Excel</h3>
+            <p>Convert PDF to Excel</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('ppt2pdf')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/powerpoint-to-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/pptPDF.png') }}"
               class="tool-icon"
             />
-            <h3>PowerPoint a PDF</h3>
-            <p>Convierte presentaciones PPT a PDF</p>
+            <h3>PowerPoint to PDF</h3>
+            <p>Convert PowerPoint to PDF</p>
           </div>
 
-          <div class="tool convertir" onclick="showTool('ocr')">
+          <div
+            class="tool convertir"
+            onclick="window.location.href = '/ocr-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/ocrPDF.png') }}"
               class="tool-icon"
             />
             <h3>OCR PDF</h3>
-            <p>Extrae texto de PDFs escaneados</p>
+            <p>Extract text from scanned PDFs</p>
           </div>
         </div>
       </div>
@@ -238,25 +279,31 @@
             src="{{ url_for('static', filename='img/icons/categoriaOptimizar.png') }}"
             class="tool-icon"
           />
-          <h2>Optimizar</h2>
+          <h2>Optimize</h2>
         </div>
         <div class="tools-grid">
-          <div class="tool optimizar" onclick="showTool('compress')">
+          <div
+            class="tool optimizar"
+            onclick="window.location.href = '/compress-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/comprimir.png') }}"
               class="tool-icon"
             />
-            <h3>Comprimir PDF</h3>
-            <p>Reduce el tamaño del PDF</p>
+            <h3>Compress PDF</h3>
+            <p>Reduce PDF file size</p>
           </div>
 
-          <div class="tool optimizar" onclick="showTool('watermark')">
+          <div
+            class="tool optimizar"
+            onclick="window.location.href = '/watermark-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/waterMark.png') }}"
               class="tool-icon"
             />
-            <h3>Marca de agua</h3>
-            <p>Agrega texto a tu PDF</p>
+            <h3>Watermark PDF</h3>
+            <p>Add text to your PDF</p>
           </div>
         </div>
       </div>
@@ -270,34 +317,43 @@
             src="{{ url_for('static', filename='img/icons/categoriaSeguridad.png') }}"
             class="tool-icon"
           />
-          <h2>Seguridad</h2>
+          <h2>Security</h2>
         </div>
         <div class="tools-grid">
-          <div class="tool seguridad" onclick="showTool('unlock')">
+          <div
+            class="tool seguridad"
+            onclick="window.location.href = '/unlock-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/unlockPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Desbloquear PDF</h3>
-            <p>Quita contraseña al PDF</p>
+            <h3>Unlock PDF</h3>
+            <p>Remove password protection from PDF</p>
           </div>
 
-          <div class="tool seguridad" onclick="showTool('protect')">
+          <div
+            class="tool seguridad"
+            onclick="window.location.href = '/protect-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/lockPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Bloquear PDF</h3>
-            <p>Agrega contraseña al PDF</p>
+            <h3>Lock PDF</h3>
+            <p>Add password protection to PDF</p>
           </div>
 
-          <div class="tool seguridad" onclick="showTool('sign')">
+          <div
+            class="tool seguridad"
+            onclick="window.location.href = '/sign-pdf'"
+          >
             <img
               src="{{ url_for('static', filename='img/icons/signPDF.png') }}"
               class="tool-icon"
             />
-            <h3>Firmar PDF</h3>
-            <p>Agrega tu firma (tipo imágen) al documento PDF</p>
+            <h3>Sign PDF</h3>
+            <p>Add your signature (as an image) to the PDF document</p>
           </div>
           <!--<div class="tool seguridad" onclick="showTool('sign_manual')">
           <img src="{{ url_for('static', filename='img/icons/.png') }}" class="tool-icon">
@@ -322,8 +378,8 @@
 
               <div class="upload-content" id="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Arrastra tus PDFs aquí</p>
-                <p class="upload-sub">o haz clic para seleccionar</p>
+                <p class="upload-title">Drag your PDFs here</p>
+                <p class="upload-sub">or click to select files</p>
               </div>
 
               <div id="file-list" class="file-list"></div>
@@ -348,8 +404,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -363,7 +419,7 @@
         <div id="pages-container">
           <div id="previewLoader" class="preview-loader hidden">
             <div class="spinner"></div>
-            <p>Cargando páginas...</p>
+            <p>Loading pages...</p>
           </div>
         </div>
       </div>
@@ -383,15 +439,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -411,7 +467,7 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🖼</div>
-                <p class="upload-title">Selecciona imágenes</p>
+                <p class="upload-title">Select images</p>
                 <p class="upload-sub">JPG o PNG</p>
               </div>
             </label>
@@ -419,7 +475,7 @@
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir a PDF</button>
+          <button class="btn">Convert to PDF</button>
         </form>
       </div>
 
@@ -442,8 +498,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -451,14 +507,14 @@
           <div class="file-name"></div>
 
           <select name="quality" class="btn">
-            <option value="low">Alta compresión</option>
-            <option value="medium" selected>Balanceado</option>
-            <option value="high">Alta calidad</option>
+            <option value="low">High Compression</option>
+            <option value="medium" selected>Balanced</option>
+            <option value="high">High Quality</option>
           </select>
 
           <br />
 
-          <button class="btn">Comprimir PDF</button>
+          <button class="btn">Compress PDF</button>
         </form>
       </div>
 
@@ -481,8 +537,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">💧</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -503,7 +559,7 @@
             "
           />
 
-          <button class="btn">Aplicar marca de agua</button>
+          <button class="btn">Apply Watermark</button>
         </form>
       </div>
 
@@ -523,7 +579,7 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona archivo Word</p>
+                <p class="upload-title">Select a Word file</p>
                 <p class="upload-sub">(.docx)</p>
               </div>
             </label>
@@ -531,7 +587,7 @@
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -550,15 +606,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -582,7 +638,7 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📊</div>
-                <p class="upload-title">Selecciona Excel</p>
+                <p class="upload-title">Select an Excel file</p>
                 <p class="upload-sub">.xls o .xlsx</p>
               </div>
             </label>
@@ -590,7 +646,7 @@
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -614,15 +670,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄➡📊</div>
-                <p class="upload-title">Selecciona PDF</p>
-                <p class="upload-sub">extraer tablas</p>
+                <p class="upload-title">Select PDF</p>
+                <p class="upload-sub">extract tables</p>
               </div>
             </label>
           </div>
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -642,7 +698,7 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📊➡📄</div>
-                <p class="upload-title">Selecciona PowerPoint</p>
+                <p class="upload-title">Select a PowerPoint file</p>
                 <p class="upload-sub">.ppt o .pptx</p>
               </div>
             </label>
@@ -650,7 +706,7 @@
 
           <div class="file-name"></div>
 
-          <button class="btn">Convertir</button>
+          <button class="btn">Convert</button>
         </form>
       </div>
 
@@ -669,15 +725,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🔍</div>
-                <p class="upload-title">Selecciona PDF</p>
-                <p class="upload-sub">escaneado o imagen</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">scanned or image-based</p>
               </div>
             </label>
           </div>
 
           <div class="file-name"></div>
 
-          <button class="btn">Aplicar OCR</button>
+          <button class="btn">Apply OCR</button>
         </form>
       </div>
 
@@ -695,14 +751,14 @@
               />
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">Sube tu archivo para numerar</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">Upload your file to add page numbers</p>
               </div>
             </label>
           </div>
           <div class="file-name"></div>
 
-          <button class="btn">Numerar PDF</button>
+          <button class="btn">Add Page Numbers</button>
         </form>
       </div>
 
@@ -720,15 +776,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🔄</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
 
           <div id="rotate-pages-container"></div>
 
-          <button class="btn">Aplicar rotación</button>
+          <button class="btn">Apply Rotation</button>
         </form>
       </div>
 
@@ -748,8 +804,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🔒</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -775,8 +831,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🔐</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -797,7 +853,7 @@
             "
           />
 
-          <button class="btn">Proteger PDF</button>
+          <button class="btn">Protect PDF</button>
         </form>
       </div>
 
@@ -805,8 +861,8 @@
         <div class="modal-content">
           <div class="loader-icon">🔒</div>
 
-          <h2>PDF protegido</h2>
-          <p>Ingresa la contraseña</p>
+          <h2>Protected PDF</h2>
+          <p>Enter the password</p>
 
           <input type="hidden" id="tempName" value="{{ temp_name }}" />
 
@@ -829,7 +885,7 @@
 
           <br /><br />
 
-          <button class="btn" onclick="submitPassword()">Desbloquear</button>
+          <button class="btn" onclick="submitPassword()">Unlock</button>
 
           <button class="btn-secondary" onclick="closePasswordModal()">
             Cancelar
@@ -852,8 +908,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF file</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -873,7 +929,7 @@
 
               <div class="upload-content">
                 <div class="upload-icon">✍️</div>
-                <p class="upload-title">Selecciona firma</p>
+                <p class="upload-title">Select sign</p>
                 <p class="upload-sub">imagen (PNG/JPG)</p>
               </div>
             </label>
@@ -881,7 +937,7 @@
 
           <div class="file-name"></div>
 
-          <button class="btn">Firmar PDF</button>
+          <button class="btn">Sign PDF</button>
         </form>
       </div>
 
@@ -901,8 +957,8 @@
               />
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -921,15 +977,15 @@
               />
               <div class="upload-content">
                 <div class="upload-icon">✍️</div>
-                <p class="upload-title">Selecciona firma</p>
-                <p class="upload-sub">PNG recomendado</p>
+                <p class="upload-title">Select a Signature</p>
+                <p class="upload-sub">PNG recommended</p>
               </div>
             </label>
           </div>
 
           <div class="file-name"></div>
 
-          <button class="btn">Continuar</button>
+          <button class="btn">Continue</button>
         </form>
       </div>
 
@@ -947,8 +1003,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📑</div>
-                <p class="upload-title">Selecciona un PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select a PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -957,7 +1013,7 @@
 
           <div id="reorder-container"></div>
 
-          <button class="btn">Aplicar orden</button>
+          <button class="btn">Apply Order</button>
         </form>
       </div>
 
@@ -975,8 +1031,8 @@
 
               <div class="upload-content">
                 <div class="upload-icon">📄</div>
-                <p class="upload-title">Selecciona el PDF</p>
-                <p class="upload-sub">o arrástralo aquí</p>
+                <p class="upload-title">Select the PDF</p>
+                <p class="upload-sub">or drag it here</p>
               </div>
             </label>
           </div>
@@ -997,15 +1053,15 @@
 
               <div class="upload-content">
                 <div class="upload-icon">🖼</div>
-                <p class="upload-title">Selecciona imágenes</p>
-                <p class="upload-sub">o arrástralas aquí</p>
+                <p class="upload-title">Select Images</p>
+                <p class="upload-sub">or drag them here</p>
               </div>
             </label>
           </div>
 
           <div id="images-name" class="file-name"></div>
 
-          <button class="btn">Agregar imágenes</button>
+          <button class="btn">Add Images</button>
         </form>
       </div>
 
@@ -1034,8 +1090,8 @@
         function googleTranslateElementInit() {
           new google.translate.TranslateElement(
             {
-              pageLanguage: "es",
-              includedLanguages: "en,es,fr,pt,de,it",
+              pageLanguage: "en",
+              includedLanguages: "es,fr,pt,de,it",
               layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             },
             "google_translate_element",
@@ -1060,23 +1116,24 @@
           </iframe>
 
           <!-- 🔥 BOTÓN CERRAR -->
-          <button class="close-btn" onclick="closeFeedback()">Cerrar</button>
+          <button class="close-btn" onclick="closeFeedback()">Close</button>
         </div>
       </div>
     </div>
-    <!-- FIN appContent -->
+    <!-- END appContent -->
     <div id="loader" class="loader hidden">
       <!-- Loader -->
       <div class="spinner"></div>
-      <p>Procesando archivo...</p>
+      <p>Processing file...</p>
     </div>
+
     <div id="processingModal" class="modal hidden">
-      <!-- modales -->
+      <!-- modals -->
       <div class="modal-content">
         <div class="loader-icon">⚙️</div>
 
-        <h2>Procesando archivo</h2>
-        <p id="loadingText">Preparando...</p>
+        <h2>Processing File</h2>
+        <p id="loadingText">Preparing...</p>
 
         <div class="progress-bar">
           <div id="progressFill"></div>
@@ -1086,49 +1143,48 @@
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <div class="footer">
       <div class="footer-container">
-        <!-- IZQUIERDA -->
+        <!-- LEFT -->
         <div class="footer-brand">
           <h3>TOOLEZI</h3>
           <p>
-            Herramientas PDF gratuitas, rápidas y seguras. Sin registro y sin
-            complicaciones.
+            Free, fast, and secure PDF tools. No registration and no hassle.
           </p>
         </div>
 
-        <!-- CENTRO -->
+        <!-- CENTER -->
         <div class="footer-links">
-          <h4>Enlaces</h4>
-          <a href="/privacidad">Privacidad</a>
-          <a href="/terminos">Términos</a>
-          <a href="/contacto">Contacto</a>
+          <h4>Links</h4>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">Contact</a>
         </div>
 
-        <!-- DERECHA -->
+        <!-- RIGHT -->
         <div class="footer-cta">
           <button class="donate-btn" onclick="openDonateModal()">
-            ☕ Apoyar proyecto
+            ☕ Support Project
           </button>
           <p class="footer-note">
-            💡 Mantener esta herramienta cuesta tiempo y recursos
+            💡 Keeping this tool running takes time and resources
           </p>
         </div>
       </div>
 
-      <!-- MENSAJE SEGURIDAD -->
+      <!-- SECURITY MESSAGE -->
       <div class="footer-security">
-        🔒 Tus archivos se eliminan automáticamente después de procesarse
+        🔒 Your files are automatically deleted after processing
       </div>
 
       <!-- COPYRIGHT -->
-      <div class="footer-bottom">© 2026 Toolezi — Hecho con 💙</div>
+      <div class="footer-bottom">© 2026 Toolezi — Made with 💙</div>
     </div>
     <div id="donateModal" class="modal">
       <div class="modal-content">
         <h2>☕ Support Toolezi</h2>
 
         <p style="margin-bottom: 15px">
-          Esta herramienta es completamente gratuita para ti. Si te ha sido
-          útil, considera apoyar el proyecto ❤️
+          This tool is completely free for you. If it has been useful, consider
+          supporting the project ❤️
         </p>
 
         <div class="donate-options">
@@ -1136,7 +1192,7 @@
           <div class="donate-card">
             <h4>Nequi</h4>
             <img src="/static/img/metodos_de_pago/nequi_qr.png" width="120" />
-            <p>Escanea para donar o copia el numero</p>
+            <p>Scan to donate or copy the number</p>
             <button onclick="copyNequi()">📱 3023064471</button>
           </div>
 
@@ -1144,7 +1200,7 @@
           <div class="donate-card">
             <h4>PayPal</h4>
             <a href="https://paypal.me/toolezi" target="_blank">
-              💳 Donar con PayPal
+              💳 Donate with PayPal
             </a>
           </div>
         </div>

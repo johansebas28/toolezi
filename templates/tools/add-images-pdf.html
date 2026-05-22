@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>Add Images to PDF Online Free | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Add images to PDF files online for free with TOOLEZI. Insert photos or images into your PDF documents easily."
+        />
+
+        <meta
+        name="keywords"
+        content="add images to pdf, insert images into pdf, pdf with images, add photos to pdf"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Add Images to PDF</h1>
+
+            <p class="hero-subtitle">
+                Insert images into PDF files easily, quickly, and for free.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="addimages" class="container active">
+
+            <form
+            action="/add_images_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <!-- PDF -->
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="pdf"
+                    id="addPdfInput"
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">📄</div>
+
+                    <p class="upload-title">
+                    Selecct a pdf
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div id="pdf-name" class="file-name"></div>
+
+            <!-- IMÁGENES -->
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="images"
+                    id="addImagesInput"
+                    multiple
+                    required
+                    hidden
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">🖼</div>
+
+                    <p class="upload-title">
+                    Select images
+                    </p>
+
+                    <p class="upload-sub">
+                    or drag it here
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div id="images-name" class="file-name"></div>
+
+            <button class="btn center-btn">
+                Add Images
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+        <h2>Why use TOOLEZI to add images to PDFs?</h2>
+
+        <p>
+        TOOLEZI allows you to insert images into PDF files online
+        without installing software. Easily add photos, signatures, or graphics.
+        </p>
+
+        <p>
+        Perfect for enhancing documents, reports, contracts, or school assignments
+        with additional images.
+        </p>
+
+        <h2>How to add images to a PDF</h2>
+
+        <ol>
+        <li>Upload your PDF file</li>
+        <li>Select the images you want to add</li>
+        <li>Click the “Add Images” button</li>
+        <li>Download the newly generated PDF</li>
+        </ol>
+
+        <h2>Benefits</h2>
+
+        <ul>
+        <li>Free PDF tool</li>
+        <li>No installation required</li>
+        <li>Compatible with mobile and desktop</li>
+        <li>Fast and secure processing</li>
+        <li>Supports multiple images</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is TOOLEZI Add Images free?</h3>
+
+        <p>
+        Yes. You can add images to PDFs completely free.
+        </p>
+
+        <h3>What image formats are supported?</h3>
+
+        <p>
+        JPG, PNG, and other common image formats.
+        </p>
+
+        <h3>Are my files secure?</h3>
+
+        <p>
+        Yes. Uploaded files are automatically deleted after processing.
+        </p>
+
+    </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">⚙️</div>
+
+            <h2>Processing File</h2>
+
+            <p id="loadingText">
+            Preparing...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

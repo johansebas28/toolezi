@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>OCR PDF Online Free | Extract Text from PDF | TOOLEZI</title>
+
+        <meta
+        name="description"
+        content="Apply OCR to scanned PDFs and images online for free. Convert PDFs into selectable text quickly with TOOLEZI."
+        />
+
+        <meta
+        name="keywords"
+        content="ocr pdf, extract text from pdf, scanned pdf to text, recognize pdf text, free online ocr"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+        />
+    </head>
+
+    <body>
+
+        <div id="appContent">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="nav">
+
+            <div class="logo">
+                <a href="/" class="brand-name">TOOLEZI</a>
+            </div>
+
+            </div>
+
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>OCR PDF Online</h1>
+
+            <p class="hero-subtitle">
+            Convert scanned PDFs and images into selectable text.
+            </p>
+
+        </section>
+
+        <!-- TOOL -->
+        <div id="ocr" class="container active">
+
+            <form
+            action="/ocr_pdf"
+            method="POST"
+            enctype="multipart/form-data"
+            >
+
+            <div class="upload-card">
+
+                <label class="drop-area">
+
+                <input
+                    type="file"
+                    name="file"
+                    class="file-input"
+                    hidden
+                    required
+                />
+
+                <div class="upload-content">
+
+                    <div class="upload-icon">🔍</div>
+
+                    <p class="upload-title">
+                    Select PDF
+                    </p>
+
+                    <p class="upload-sub">
+                    scanned document or image
+                    </p>
+
+                </div>
+
+                </label>
+
+            </div>
+
+            <div class="file-name"></div>
+
+            <button class="btn center-btn">
+                Apply OCR
+            </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEO -->
+        <section class="legal-container">
+
+            <h2>Apply OCR to PDF online for free</h2>
+
+            <p>
+            Convert scanned documents and images into PDF files with selectable
+            text using free online OCR.
+            </p>
+
+            <p>
+            TOOLEZI automatically detects text in scanned PDFs so you can
+            copy, search, and select content easily.
+            </p>
+
+            <h2>How to use OCR on PDF</h2>
+
+            <ol>
+            <li>Upload your PDF or image</li>
+            <li>Click the “Apply OCR” button</li>
+            <li>Wait for the text recognition</li>
+            <li>Download the processed PDF</li>
+            </ol>
+
+            <h2>Benefits</h2>
+
+            <ul>
+            <li>Automatic OCR recognition</li>
+            <li>Compatible with scanned PDFs</li>
+            <li>Supports images</li>
+            <li>Selectable text output</li>
+            <li>Secure processing</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>What is OCR?</h3>
+
+            <p>
+            OCR stands for Optical Character Recognition and allows text extraction
+            from images or scanned documents.
+            </p>
+
+            <h3>Can I use images?</h3>
+
+            <p>
+            Yes. You can upload images or scanned PDFs.
+            </p>
+
+            <h3>Will the text become selectable?</h3>
+
+            <p>
+            Yes. The generated PDF will allow you to select and copy text.
+            </p>
+
+        </section>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="processingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="loader-icon">🔍</div>
+
+            <h2>Processing OCR</h2>
+
+            <p id="loadingText">
+            Recognizing text...
+            </p>
+
+            <div class="progress-bar">
+            <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    </body>
+</html>

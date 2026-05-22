@@ -57,6 +57,81 @@ def home():
     clean_old_files()  # 🔥 limpia cada vez que alguien entra
     return render_template("index.html")
 
+@app.route("/merge-pdf")
+def merge_pdf_page():
+    return render_template("tools/merge-pdf.html")
+
+@app.route("/split-pdf")
+def split_pdf_page():
+    return render_template("tools/split-pdf.html")
+
+@app.route("/rotate-pdf")
+def rotate_pdf_page():
+    return render_template("tools/rotate-pdf.html")
+
+@app.route("/reorder-pdf")
+def reorder_pdf_page():
+    return render_template("tools/reorder-pdf.html")
+
+@app.route("/add-images-pdf")
+def add_images_page():
+    return render_template("tools/add-images-pdf.html")
+
+@app.route("/number-pdf")
+def number_pdf_page():
+    return render_template("tools/number-pdf.html")
+
+@app.route("/pdf-to-image")
+def pdf_to_image_page():
+    return render_template("tools/pdf-to-image.html")
+
+@app.route("/image-to-pdf")
+def image_to_pdf_page():
+    return render_template("tools/image-to-pdf.html")
+
+@app.route("/pdf-to-word")
+def pdf_to_word_page():
+    return render_template("tools/pdf-to-word.html")
+
+@app.route("/word-to-pdf")
+def word_to_pdf_page():
+    return render_template("tools/word-to-pdf.html")
+
+@app.route("/excel-to-pdf")
+def excel_to_pdf_page():
+    return render_template("tools/excel-to-pdf.html")
+
+@app.route("/pdf-to-excel")
+def pdf_to_excel_page():
+    return render_template("tools/pdf-to-excel.html")
+
+@app.route("/powerpoint-to-pdf")
+def powerpoint_to_pdf_page():
+    return render_template("tools/powerpoint-to-pdf.html")
+
+@app.route("/ocr-pdf")
+def ocr_pdf_page():
+    return render_template("tools/ocr-pdf.html")
+
+@app.route("/compress-pdf")
+def compress_pdf_page():
+    return render_template("tools/compress-pdf.html")
+
+@app.route("/watermark-pdf")
+def watermark_pdf_page():
+    return render_template("tools/watermark-pdf.html")
+
+@app.route("/unlock-pdf")
+def unlock_pdf_page():
+    return render_template("tools/unlock-pdf.html")
+
+@app.route("/protect-pdf")
+def protect_pdf_page():
+    return render_template("tools/protect-pdf.html")
+
+@app.route("/sign-pdf")
+def sign_pdf_page():
+    return render_template("tools/sign-pdf.html")
 
 @app.route("/download/<filename>")
 def download_file(filename):
